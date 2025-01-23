@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Board {
 
     @Id
-    @GeneratedValue(strategy  = GenerationType.IDENTITY)
+    @GeneratedValue(strategy  = GenerationType.AUTO)
     private int boardId;
 
     @Column(name = "BoardName", length = 100)
