@@ -1,6 +1,6 @@
 package com.example.jira.controllers;
 
-import com.example.jira.Services.BoardService;
+import com.example.jira.services.BoardService;
 import com.example.jira.models.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.example.jira.Services;
+package com.example.jira.services;
 
 import com.example.jira.models.Board;
 import com.example.jira.repositories.BoardRepository;
@@ -14,4 +14,5 @@ public class BoardService {
     public Board createBoard(Board board) {
         return boardRepository.save(board);
     }
+
 }
