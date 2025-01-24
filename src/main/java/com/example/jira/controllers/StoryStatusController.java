@@ -25,6 +25,11 @@ public class StoryStatusController {
     public ResponseEntity<List<StoryStatus>> getAllStoryStatus(){
         return new ResponseEntity<>(storyStatusService.getAllStoryStatus(), HttpStatus.OK);
     }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<StoryStatus> getStoryStatus(@PathVariable int id){
+        return new ResponseEntity<>(storyStatusService.getStoryStatus(id), HttpStatus.OK);
+    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<StoryStatus> updateStoryStatus(@RequestBody StoryStatus storyStatus, @PathVariable int id){
