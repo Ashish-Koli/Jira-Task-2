@@ -26,6 +26,11 @@ public class BoardController {
         return new ResponseEntity<>(boardService.getAllBoards(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Board> getBoard(@PathVariable int id){
+        return new ResponseEntity<>(boardService.getBoard(id), HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Board> updateBoard(@RequestBody Board board, @PathVariable int id){
         return new ResponseEntity<>(boardService.updateBoard(board, id), HttpStatus.OK);
