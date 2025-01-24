@@ -21,7 +21,7 @@ public class SubTaskService {
         Story story = storyService.getStory(subTaskDTO.getStory());
         SubTask subTask = new SubTask();
         subTask.setTaskName(subTaskDTO.getTaskName());
-        subTask.setDescription(subTask.getDescription());
+        subTask.setDescription(subTaskDTO.getDescription());
         subTask.setStory(story);
         return subTaskRepository.save(subTask);
     }

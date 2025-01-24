@@ -18,7 +18,7 @@ public class SubTaskController {
     private SubTaskService subTaskService;
 
     @PostMapping("/create")
-    public ResponseEntity<SubTask> createSubTask(SubTaskDTO subTaskDTO){
+    public ResponseEntity<SubTask> createSubTask(@RequestBody SubTaskDTO subTaskDTO){
         return new ResponseEntity<>(subTaskService.createSubtask(subTaskDTO), HttpStatus.CREATED);
     }
 
