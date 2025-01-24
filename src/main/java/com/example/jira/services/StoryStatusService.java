@@ -21,6 +21,10 @@ public class StoryStatusService {
         return storyStatusRepository.findAll();
     }
 
+    public StoryStatus getStoryStatus(int id){
+        return storyStatusRepository.findById(id).orElseThrow();
+    }
+
     public StoryStatus updateStoryStatus(StoryStatus storyStatus, int id){
         StoryStatus updateStoryStatus = storyStatusRepository.findById(id).orElseThrow();
         updateStoryStatus.setName(storyStatus.getName());
