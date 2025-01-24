@@ -7,6 +7,8 @@ import com.example.jira.repositories.SubTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SubTaskService {
 
@@ -23,5 +25,27 @@ public class SubTaskService {
         subTask.setStory(story);
         return subTaskRepository.save(subTask);
     }
+
+    public List<SubTask> getAllSubTasks(){
+        return subTaskRepository.findAll();
+    }
+
+    public SubTask getSubTask(int id){
+        return subTaskRepository.findById(id).orElseThrow();
+    }
+
+    public SubTask updateSubTask(SubTaskDTO subTaskDTO, int id){
+        SubTask updateSubTask = subTaskRepository.findById(id).orElseThrow();
+        Story updatestory = storyService.getStory(subTaskDTO.getStory());
+        updateSubTask.setTaskName(subTaskDTO.getTaskName());
+        updateSubTask.setDescription(subTaskDTO.getDescription());
+        updateSubTask.setStory(updatestory);
+        return subTaskRepository.save(updateSubTask);
+    }
+
+    public void deleteSubTask(int id){
+        subTaskRepository.deleteById(id);
+    }
+
 
 }
