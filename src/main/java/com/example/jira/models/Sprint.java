@@ -27,6 +27,9 @@ public class Sprint {
     @Column(name = "EndDate")
     private Date endDate;
 
+    @OneToOne(mappedBy = "sprint", cascade = CascadeType.ALL)
+    private Release release;
+
     public Sprint() {
     }
 
