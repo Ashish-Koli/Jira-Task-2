@@ -22,6 +22,10 @@ public class BoardService {
         return boardRepository.findAll();
     }
 
+    public Board getBoard(int id){
+        return boardRepository.findById(id).orElseThrow();
+    }
+
     public Board updateBoard(Board board, int id) {
         Board updateBoard = boardRepository.findById(id).orElseThrow();
         updateBoard.setBoardName(board.getBoardName());
