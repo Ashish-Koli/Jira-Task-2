@@ -31,12 +31,12 @@ public class Project {
     public Project() {
     }
 
-    public Project(int projectId, String projectName, String projectDescription, List<Board> boardList) {
+    public Project(int projectId, String projectName, String projectDescription, List<Board> boardList, List<User> userList) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.boardList = boardList;
-
+        this.userList = userList;
     }
 
     public int getProjectId() {
@@ -71,11 +71,11 @@ public class Project {
         this.boardList = boardList;
     }
 
-//    public List<User> getUserList() {
-//        return userList;
-//    }
-//
-//    public void setUserList(List<User> userList) {
-//        this.userList = userList;
-//    }
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
 }
