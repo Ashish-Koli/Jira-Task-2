@@ -10,4 +10,6 @@ public class JiraApplication {
 		SpringApplication.run(JiraApplication.class, args);
 	}
 
+
+
 }
