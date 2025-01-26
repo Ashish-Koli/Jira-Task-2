@@ -1,7 +1,10 @@
 package com.example.jira.services;
 
+import com.example.jira.dto.BoardDTO;
 import com.example.jira.models.Board;
+import com.example.jira.models.Project;
 import com.example.jira.repositories.BoardRepository;
+import com.example.jira.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
@@ -14,12 +17,23 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    public Board createBoard(Board board) {
+    @Autowired
+    private ProjectRepository projectRepository;
+
+    public Board createBoard(BoardDTO boardDTO) {
+        Board board = new Board();
+        board.setBoardName(boardDTO.getBoardName());
+        Project project = projectRepository.findById(boardDTO.getProject()).orElseThrow();
+        board.setProject(project);
         return boardRepository.save(board);
     }
 
     public List<Board> getAllBoards() {
         return boardRepository.findAll();
+    }
+
+    public List<Board> getBoardsByProjectId(int projectId) {
+        return boardRepository.findBoardsByProjectId(projectId);
     }
 
     public Board getBoard(int id){

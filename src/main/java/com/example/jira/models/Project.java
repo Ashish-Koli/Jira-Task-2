@@ -17,15 +17,20 @@ public class Project {
     @Column(name = "ProjectDescription", length = 100)
     private String projectDescription;
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference("project-board")
     private List<Board> boardList;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @JsonManagedReference("project-epic")
+    private List<Epic> epicList;
+
     @ManyToMany
     @JoinTable(
             name = "project_users",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    @JsonManagedReference
+    @JsonManagedReference(value = "project-user")
     private List<User> userList;
 
     public Project() {

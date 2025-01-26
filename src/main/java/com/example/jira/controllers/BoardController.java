@@ -1,5 +1,6 @@
 package com.example.jira.controllers;
 
+import com.example.jira.dto.BoardDTO;
 import com.example.jira.services.BoardService;
 import com.example.jira.models.Board;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class BoardController {
     private BoardService boardService;
 
     @PostMapping("/create")
-    public ResponseEntity<Board> createBoard(@RequestBody Board board){
-        return new ResponseEntity<>(boardService.createBoard(board), HttpStatus.CREATED);
+    public ResponseEntity<Board> createBoard(@RequestBody BoardDTO boardDTO){
+        return new ResponseEntity<>(boardService.createBoard(boardDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/allBoards")
@@ -29,6 +30,11 @@ public class BoardController {
     @GetMapping("/{id}")
     public ResponseEntity<Board> getBoard(@PathVariable int id){
         return new ResponseEntity<>(boardService.getBoard(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<Board>> getBoardsByProjectId(@PathVariable int projectId) {
+        return new ResponseEntity<>(boardService.getBoardsByProjectId(projectId),HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")

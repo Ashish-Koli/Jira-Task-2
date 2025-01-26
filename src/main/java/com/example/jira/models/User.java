@@ -1,9 +1,10 @@
 package com.example.jira.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-
+import java.util.List;
 
 
 @Entity
@@ -19,18 +20,23 @@ public class User {
     private String password;
     @ManyToOne
     @JoinColumn(name = "RoleId")
-    @JsonBackReference
+    @JsonBackReference(value = "user-role")
     private Role role;
+    @ManyToMany(mappedBy = "userList")
+    @JsonBackReference(value = "project-user")
+    private List<Project> projectList;
+
 
     public User() {
     }
 
-    public User(int userId, String userName, String email, String password, Role role) {
+    public User(int userId, String userName, String email, String password, Role role, List<Project> projectList) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.projectList = projectList;
     }
 
     public int getUserId() {
@@ -71,5 +77,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Project> getProjectList() {
+        return projectList;
+    }
+
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
     }
 }

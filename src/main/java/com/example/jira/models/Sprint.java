@@ -1,5 +1,6 @@
 package com.example.jira.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -29,6 +30,16 @@ public class Sprint {
 
     @OneToOne(mappedBy = "sprint", cascade = CascadeType.ALL)
     private Release release;
+
+    @ManyToOne
+    @JoinColumn(name = "epic_id")
+    @JsonBackReference("epic-sprint")
+    private Epic epic;
+
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    @JsonBackReference("board-sprint")
+    private Board board;
 
     public Sprint() {
     }
