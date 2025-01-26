@@ -19,19 +19,24 @@ public class Project {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Board> boardList;
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+            name = "project_users",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     @JsonManagedReference
     private List<User> userList;
 
     public Project() {
     }
 
-    public Project(int projectId, String projectName, String projectDescription, List<Board> boardList, List<User> userList) {
+    public Project(int projectId, String projectName, String projectDescription, List<Board> boardList) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.boardList = boardList;
-        this.userList = userList;
+
     }
 
     public int getProjectId() {
@@ -66,11 +71,11 @@ public class Project {
         this.boardList = boardList;
     }
 
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
+//    public List<User> getUserList() {
+//        return userList;
+//    }
+//
+//    public void setUserList(List<User> userList) {
+//        this.userList = userList;
+//    }
 }
