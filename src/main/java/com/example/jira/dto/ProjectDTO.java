@@ -8,12 +8,14 @@ public class ProjectDTO {
     private String projectDescription;
     private List<Integer> boardList;
     private List<Integer> userList;
+    private List<Integer> epicList;
 
-    public ProjectDTO(String projectName, String projectDescription, List<Integer> boardList, List<Integer> userList) {
+    public ProjectDTO(String projectName, String projectDescription, List<Integer> boardList, List<Integer> userList, List<Integer> epicList) {
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.boardList = boardList;
         this.userList = userList;
+        this.epicList = epicList;
     }
 
     public String getProjectName() {
@@ -46,5 +48,13 @@ public class ProjectDTO {
 
     public void setUserList(List<Integer> userList) {
         this.userList = userList;
+    }
+
+    public List<Integer> getEpicList() {
+        return epicList;
+    }
+
+    public void setEpicList(List<Integer> epicList) {
+        this.epicList = epicList;
     }
 }

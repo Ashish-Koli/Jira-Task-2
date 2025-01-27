@@ -1,6 +1,7 @@
 package com.example.jira.controllers;
 
 
+import com.example.jira.dto.LoginDTO;
 import com.example.jira.dto.UserDTO;
 import com.example.jira.models.User;
 import com.example.jira.services.UserService;
@@ -44,5 +45,9 @@ public class UserController {
         return new ResponseEntity<>("User Deleted.",HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping("/login")
+    public String login(@RequestBody LoginDTO loginDTO){
+        return userService.verify(loginDTO);
+    }
 
 }

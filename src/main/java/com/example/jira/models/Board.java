@@ -22,16 +22,17 @@ public class Board {
     private Project project;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    @JsonManagedReference("board-sprint")
+    @JsonManagedReference(value = "board-sprint")
     private List<Sprint> sprintList;
 
     public Board() {
     }
 
-    public Board(int boardId, String boardName, Project project) {
+    public Board(int boardId, String boardName, Project project, List<Sprint> sprintList) {
         this.boardId = boardId;
         this.boardName = boardName;
         this.project = project;
+        this.sprintList = sprintList;
     }
 
     public int getBoardId() {
@@ -56,5 +57,13 @@ public class Board {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public List<Sprint> getSprintList() {
+        return sprintList;
+    }
+
+    public void setSprintList(List<Sprint> sprintList) {
+        this.sprintList = sprintList;
     }
 }

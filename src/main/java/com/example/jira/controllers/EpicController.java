@@ -1,5 +1,6 @@
 package com.example.jira.controllers;
 
+import com.example.jira.dto.EpicDTO;
 import com.example.jira.models.Epic;
 import com.example.jira.services.EpicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class EpicController {
     private EpicService epicService;
 
     @PostMapping("/create")
-    public ResponseEntity<Epic> createEpic(@RequestBody Epic epic){
-        return new ResponseEntity<>(epicService.createEpic(epic), HttpStatus.CREATED);
+    public ResponseEntity<Epic> createEpic(@RequestBody EpicDTO epicDTO){
+        return new ResponseEntity<>(epicService.createEpic(epicDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/allEpic")

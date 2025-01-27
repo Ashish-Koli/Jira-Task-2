@@ -28,6 +28,10 @@ public class ProjectController {
         return new ResponseEntity<>(projectService.getAllProjects(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Project> getProject(@PathVariable int id){
+        return new ResponseEntity<>(projectService.getProject(id), HttpStatus.OK);
+    }
 
     @GetMapping("/user/{userId}")
     public List<Project> getProjectsByUserId(@PathVariable int userId) {

@@ -17,11 +17,11 @@ public class Project {
     @Column(name = "ProjectDescription", length = 100)
     private String projectDescription;
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    @JsonManagedReference("project-board")
+    @JsonManagedReference(value = "project-board")
     private List<Board> boardList;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    @JsonManagedReference("project-epic")
+    @JsonManagedReference(value = "project-epic")
     private List<Epic> epicList;
 
     @ManyToMany
@@ -36,11 +36,12 @@ public class Project {
     public Project() {
     }
 
-    public Project(int projectId, String projectName, String projectDescription, List<Board> boardList, List<User> userList) {
+    public Project(int projectId, String projectName, String projectDescription, List<Board> boardList, List<Epic> epicList, List<User> userList) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.boardList = boardList;
+        this.epicList = epicList;
         this.userList = userList;
     }
 
@@ -74,6 +75,14 @@ public class Project {
 
     public void setBoardList(List<Board> boardList) {
         this.boardList = boardList;
+    }
+
+    public List<Epic> getEpicList() {
+        return epicList;
+    }
+
+    public void setEpicList(List<Epic> epicList) {
+        this.epicList = epicList;
     }
 
     public List<User> getUserList() {
