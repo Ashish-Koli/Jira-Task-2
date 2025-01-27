@@ -2,6 +2,7 @@ package com.example.jira.controllers;
 
 
 import com.example.jira.dto.LoginDTO;
+import com.example.jira.dto.TokenResponse;
 import com.example.jira.dto.UserDTO;
 import com.example.jira.models.User;
 import com.example.jira.services.UserService;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class UserController {
 
     @Autowired
@@ -45,9 +47,12 @@ public class UserController {
         return new ResponseEntity<>("User Deleted.",HttpStatus.NO_CONTENT);
     }
 
+
     @PostMapping("/login")
-    public String login(@RequestBody LoginDTO loginDTO){
-        return userService.verify(loginDTO);
+    public ResponseEntity<TokenResponse> login(@RequestBody LoginDTO loginDTO){
+        TokenResponse tokenResponse = new TokenResponse();
+             tokenResponse.setToken(userService.verify(loginDTO));
+        return new ResponseEntity<>(tokenResponse,HttpStatus.OK);
     }
 
 }
