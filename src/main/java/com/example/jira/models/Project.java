@@ -14,7 +14,7 @@ public class Project {
     private int projectId;
     @Column(name = "ProjectName", length = 100)
     private String projectName;
-    @Column(name = "ProjectDescription", length = 100)
+    @Column(name = "ProjectDescription", length = 500)
     private String projectDescription;
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "project-board")

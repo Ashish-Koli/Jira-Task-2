@@ -1,5 +1,7 @@
 package com.example.jira.services;
 
+import com.example.jira.dto.SprintDTO;
+import com.example.jira.models.Board;
 import com.example.jira.models.Sprint;
 import com.example.jira.repositories.SprintRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,18 @@ public class SprintService {
     @Autowired
     private SprintRepository sprintRepository;
 
-    public Sprint createSprint(Sprint sprint){
+    @Autowired
+    private BoardService boardService;
+
+    public Sprint createSprint(SprintDTO sprintDTO){
+        Sprint sprint = new Sprint();
+        sprint.setSprintNo(sprintDTO.getSprintNo());
+        sprint.setSprintName(sprintDTO.getSprintName());
+        sprint.setSprintPoint(sprintDTO.getSprintPoint());
+        sprint.setStartDate(sprintDTO.getStartDate());
+        sprint.setEndDate(sprintDTO.getEndDate());
+        Board board = boardService.getBoard(sprintDTO.getBoard());
+        sprint.setBoard(board);
         return sprintRepository.save(sprint);
     }
 
@@ -25,13 +38,15 @@ public class SprintService {
         return sprintRepository.findById(id).orElseThrow();
     }
 
-    public Sprint updateSprint(Sprint sprint, int id){
-        Sprint updateSprint =  sprintRepository.findById(id).orElseThrow();
-        updateSprint.setSprintNo(sprint.getSprintNo());
-        updateSprint.setSprintName(sprint.getSprintName());
-        updateSprint.setSprintPoint(sprint.getSprintPoint());
-        updateSprint.setStartDate(sprint.getStartDate());
-        updateSprint.setEndDate(sprint.getEndDate());
+    public Sprint updateSprint(SprintDTO sprintDTO, int id){
+        Sprint updateSprint = sprintRepository.findById(id).orElseThrow();
+        updateSprint.setSprintNo(sprintDTO.getSprintNo());
+        updateSprint.setSprintName(sprintDTO.getSprintName());
+        updateSprint.setSprintPoint(sprintDTO.getSprintPoint());
+        updateSprint.setStartDate(sprintDTO.getStartDate());
+        updateSprint.setEndDate(sprintDTO.getEndDate());
+        Board board = boardService.getBoard(sprintDTO.getBoard());
+        updateSprint.setBoard(board);
         return sprintRepository.save(updateSprint);
     }
 

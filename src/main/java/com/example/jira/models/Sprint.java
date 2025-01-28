@@ -31,10 +31,10 @@ public class Sprint {
     @OneToOne(mappedBy = "sprint", cascade = CascadeType.ALL)
     private Release release;
 
-    @ManyToOne
-    @JoinColumn(name = "epic_id")
-    @JsonBackReference("epic-sprint")
-    private Epic epic;
+//    @ManyToOne
+//    @JoinColumn(name = "epic_id")
+//    @JsonBackReference("epic-sprint")
+//    private Epic epic;
 
     @ManyToOne
     @JoinColumn(name = "board_id")
@@ -44,13 +44,15 @@ public class Sprint {
     public Sprint() {
     }
 
-    public Sprint(int sprintId, String sprintNo, String sprintName, int sprintPoint, Date startDate, Date endDate) {
+    public Sprint(int sprintId, String sprintNo, String sprintName, int sprintPoint, Date startDate, Date endDate, Release release, Board board) {
         this.sprintId = sprintId;
         this.sprintNo = sprintNo;
         this.sprintName = sprintName;
         this.sprintPoint = sprintPoint;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.release = release;
+        this.board = board;
     }
 
     public int getSprintId() {
@@ -99,6 +101,22 @@ public class Sprint {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Release getRelease() {
+        return release;
+    }
+
+    public void setRelease(Release release) {
+        this.release = release;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 }
 

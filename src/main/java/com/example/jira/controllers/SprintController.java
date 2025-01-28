@@ -1,5 +1,6 @@
 package com.example.jira.controllers;
 
+import com.example.jira.dto.SprintDTO;
 import com.example.jira.models.Sprint;
 import com.example.jira.services.SprintService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class SprintController {
     private SprintService sprintService;
 
     @PostMapping("/create")
-    public ResponseEntity<Sprint> createSprint(@RequestBody Sprint sprint){
-        return new ResponseEntity<>(sprintService.createSprint(sprint), HttpStatus.CREATED);
+    public ResponseEntity<Sprint> createSprint(@RequestBody SprintDTO sprintDTO){
+        return new ResponseEntity<>(sprintService.createSprint(sprintDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/allSprint")
@@ -32,8 +33,8 @@ public class SprintController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Sprint> updateSprint(@RequestBody Sprint sprint, @PathVariable  int id){
-        return new ResponseEntity<>(sprintService.updateSprint(sprint, id), HttpStatus.OK);
+    public ResponseEntity<Sprint> updateSprint(@RequestBody SprintDTO sprintDTO, @PathVariable  int id){
+        return new ResponseEntity<>(sprintService.updateSprint(sprintDTO, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

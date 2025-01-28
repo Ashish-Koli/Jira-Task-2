@@ -38,8 +38,8 @@ public class BoardController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Board> updateBoard(@RequestBody Board board, @PathVariable int id){
-        return new ResponseEntity<>(boardService.updateBoard(board, id), HttpStatus.OK);
+    public ResponseEntity<Board> updateBoard(@RequestBody BoardDTO boardDTO, @PathVariable int id){
+        return new ResponseEntity<>(boardService.updateBoard(boardDTO, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

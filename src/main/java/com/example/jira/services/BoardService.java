@@ -40,9 +40,13 @@ public class BoardService {
         return boardRepository.findById(id).orElseThrow();
     }
 
-    public Board updateBoard(Board board, int id) {
+    public Board updateBoard(BoardDTO boardDTO, int id) {
         Board updateBoard = boardRepository.findById(id).orElseThrow();
-        updateBoard.setBoardName(board.getBoardName());
+        System.out.println(updateBoard.getBoardName());
+        System.out.println(boardDTO.getBoardName());
+        updateBoard.setBoardName(boardDTO.getBoardName());
+        Project project = projectRepository.findById(boardDTO.getProject()).orElseThrow();
+        updateBoard.setProject(project);
         return boardRepository.save(updateBoard);
     }
 
