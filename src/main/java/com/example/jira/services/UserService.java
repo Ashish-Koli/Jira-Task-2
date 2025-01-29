@@ -2,6 +2,7 @@ package com.example.jira.services;
 
 import com.example.jira.dto.LoginDTO;
 import com.example.jira.dto.UserDTO;
+import com.example.jira.dto.responseDTO.UserResponseDTO;
 import com.example.jira.models.Role;
 import com.example.jira.models.User;
 import com.example.jira.repositories.RoleRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -44,8 +46,16 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
+    public List<UserResponseDTO> getAllUsers(){
+
+        return userRepository.findAll().stream().map((user)->{
+            UserResponseDTO userResponseDTO  = new UserResponseDTO();
+            userResponseDTO.setUserId(user.getUserId());
+            userResponseDTO.setUserName(user.getUserName());
+            userResponseDTO.setEmail(user.getEmail());
+            userResponseDTO.setRole(user.getRole().getTitle());
+            return userResponseDTO;
+        }).toList();
     }
 
     public User getUser(int id){

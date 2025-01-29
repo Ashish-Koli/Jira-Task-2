@@ -53,8 +53,8 @@ public class ProjectService {
         project.setEpicList(epicList);
 
         List<User> userList = new ArrayList<>();
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        String username = "Ashish";
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        String username = "Ashish";
         User user1 = userRepository.findByUserName(username);
         userList.add(user1); // add the current user
         List<Integer> userDTOList = projectDTO.getUserList();
@@ -71,9 +71,9 @@ public class ProjectService {
     }
 
     public Project updateProject(ProjectDTO projectDTO, int id){
-        Project udpdateProject = projectRepository.findById(id).orElseThrow();
-//        udpdateProject.setProjectName(projectDTO.getProjectName());
-//        udpdateProject.setProjectDescription(projectDTO.getProjectDescription());
+        Project updateProject = projectRepository.findById(id).orElseThrow();
+        updateProject.setProjectName(projectDTO.getProjectName());
+        updateProject.setProjectDescription(projectDTO.getProjectDescription());
 //
 //        List<Board> boardList = new ArrayList<>();
 //        List<Integer> boardDTOList = projectDTO.getBoardList();
@@ -83,7 +83,7 @@ public class ProjectService {
 //                boardList.add(board);
 //            }
 //        }
-//        udpdateProject.setBoardList(boardList);
+        updateProject.setBoardList(updateProject.getBoardList());
 //
 ////        List<Epic> epicList = new ArrayList<>();
 ////        List<Integer> epicDTOList = projectDTO.getEpicList();
@@ -93,19 +93,23 @@ public class ProjectService {
 ////                epicList.add(epic);
 ////            }
 ////        }
-////        udpdateProject.setEpicList(epicList);
+        updateProject.setEpicList(updateProject.getEpicList());
 //
-//        List<User> userList = new ArrayList<>();
-//        List<Integer> userDTOList = projectDTO.getUserList();
-//        for (int i=0; i<projectDTO.getUserList().size(); i++){
-//            User user = userService.getUser(userDTOList.get(i));
-//            if (user != null){
-//                userList.add(user);
-//            }
-//        }
-//        udpdateProject.setUserList(userList);
+        List<User> userList = new ArrayList<>();
+        List<Integer> userDTOList = projectDTO.getUserList();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        String username = "Ashish";
+        User user1 = userRepository.findByUserName(username);
+        userList.add(user1); // add the current user
+        for (int i=0; i<projectDTO.getUserList().size(); i++){
+            User user = userService.getUser(userDTOList.get(i));
+            if (user != null){
+                userList.add(user);
+            }
+        }
+        updateProject.setUserList(userList);
 
-        return projectRepository.save(udpdateProject);
+        return projectRepository.save(updateProject);
     }
 
     public List<Project> getProjectsByUserId(int userId) {

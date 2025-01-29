@@ -4,11 +4,14 @@ package com.example.jira.controllers;
 import com.example.jira.dto.LoginDTO;
 import com.example.jira.dto.TokenResponse;
 import com.example.jira.dto.UserDTO;
+import com.example.jira.dto.responseDTO.UserResponseDTO;
 import com.example.jira.models.User;
 import com.example.jira.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +35,7 @@ public class UserController {
     }
 
     @GetMapping("/allUser")
-    public ResponseEntity<List<User>> getAllUsers(){
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
