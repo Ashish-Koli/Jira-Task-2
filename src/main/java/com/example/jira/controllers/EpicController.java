@@ -1,6 +1,7 @@
 package com.example.jira.controllers;
 
 import com.example.jira.dto.EpicDTO;
+import com.example.jira.dto.responseDTO.EpicResponseDTO;
 import com.example.jira.models.Epic;
 import com.example.jira.services.EpicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class EpicController {
     }
 
     @GetMapping("/allEpic")
-    public ResponseEntity<List<Epic>> getAllEpics(){
+    public ResponseEntity<List<EpicResponseDTO>> getAllEpics(){
         return new ResponseEntity<>(epicService.getAllEpics(), HttpStatus.OK);
     }
 
@@ -33,8 +34,8 @@ public class EpicController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Epic> updateEpic(@RequestBody Epic epic, @PathVariable int id){
-        return new ResponseEntity<>(epicService.updateEpic(epic, id), HttpStatus.OK);
+    public ResponseEntity<Epic> updateEpic(@RequestBody EpicDTO epicDTO, @PathVariable int id){
+        return new ResponseEntity<>(epicService.updateEpic(epicDTO, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

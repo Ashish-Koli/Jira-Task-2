@@ -1,6 +1,7 @@
 package com.example.jira.services;
 
 import com.example.jira.dto.EpicDTO;
+import com.example.jira.dto.responseDTO.EpicResponseDTO;
 import com.example.jira.models.Epic;
 import com.example.jira.models.Project;
 import com.example.jira.repositories.EpicRepository;
@@ -28,8 +29,15 @@ public class EpicService {
         return epicRepository.save(epic);
     }
 
-    public List<Epic> getAllEpics(){
-        return epicRepository.findAll();
+    public List<EpicResponseDTO> getAllEpics(){
+        return epicRepository.findAll().stream().map(epic -> {
+            EpicResponseDTO epicResponseDTO = new EpicResponseDTO();
+            epicResponseDTO.setEpicId(epic.getEpicId());
+            epicResponseDTO.setEpicName(epic.getEpicName());
+            epicResponseDTO.setDescription(epic.getDescription());
+            epicResponseDTO.setProject(epic.getProject().getProjectName());
+            return epicResponseDTO;
+        }).toList();
     }
 
     public Epic getEpic(int id){
@@ -37,10 +45,12 @@ public class EpicService {
     }
 
     //change
-    public Epic updateEpic(Epic epic, int id){
+    public Epic updateEpic(EpicDTO epicDTO, int id){
         Epic updateEpic = epicRepository.findById(id).orElseThrow();
-        updateEpic.setEpicName(epic.getEpicName());
-        updateEpic.setDescription(epic.getDescription());
+        updateEpic.setEpicName(epicDTO.getEpicName());
+        updateEpic.setDescription(epicDTO.getDescription());
+        Project project = projectService.getProject(epicDTO.getProject());
+        updateEpic.setProject(project);
         return epicRepository.save(updateEpic);
     }
 
