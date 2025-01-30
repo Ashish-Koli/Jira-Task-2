@@ -1,6 +1,7 @@
 package com.example.jira.services;
 
 import com.example.jira.dto.BoardDTO;
+import com.example.jira.dto.responseDTO.BoardNamesResponseDTO;
 import com.example.jira.models.Board;
 import com.example.jira.models.Project;
 import com.example.jira.repositories.BoardRepository;
@@ -32,7 +33,17 @@ public class BoardService {
         return boardRepository.findAll();
     }
 
-    public List<Board> getBoardsByProjectId(int projectId) {
+//    public List<BoardNamesResponseDTO> getBoardsByProjectId(int projectId) {
+//        return boardRepository.findBoardsByProjectId(projectId).stream().map(board -> {
+//            BoardNamesResponseDTO responseDTO = new BoardNamesResponseDTO();
+//            responseDTO.setBoardId(board.getBoardId());
+//            responseDTO.setBoardName(board.getBoardName());
+//            return responseDTO;
+//        }
+//        ).toList();
+//    }
+
+    public  List<Board> getBoardsByProjectId(int projectId){
         return boardRepository.findBoardsByProjectId(projectId);
     }
 

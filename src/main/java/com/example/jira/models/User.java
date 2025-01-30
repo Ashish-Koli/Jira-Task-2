@@ -20,7 +20,7 @@ public class User {
     private String password;
     @ManyToOne
     @JoinColumn(name = "RoleId")
-    @JsonBackReference(value = "user-role")
+    @JsonManagedReference(value = "user-role")
     private Role role;
     @ManyToMany(mappedBy = "userList")
     @JsonBackReference(value = "project-user")

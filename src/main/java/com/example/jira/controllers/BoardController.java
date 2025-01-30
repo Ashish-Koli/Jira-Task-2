@@ -1,6 +1,7 @@
 package com.example.jira.controllers;
 
 import com.example.jira.dto.BoardDTO;
+import com.example.jira.dto.responseDTO.BoardNamesResponseDTO;
 import com.example.jira.services.BoardService;
 import com.example.jira.models.Board;
 import org.springframework.beans.factory.annotation.Autowired;

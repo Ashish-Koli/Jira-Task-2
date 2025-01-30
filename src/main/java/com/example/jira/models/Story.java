@@ -34,11 +34,12 @@ public class Story {
 
     @ManyToOne
     @JoinColumn(name = "SprintId")
-    @JsonIgnore // Prevent recursion
+    @JsonBackReference(value = "sprint-story")
     private Sprint sprint;
 
     @ManyToOne
     @JoinColumn(name = "EpicId")
+    @JsonIgnore
     private Epic epic;
 
     public Story() {

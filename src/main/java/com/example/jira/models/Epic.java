@@ -25,9 +25,14 @@ public class Epic {
     @JsonBackReference(value = "project-epic")
     private Project project;
 
+    @OneToMany(mappedBy = "epic", cascade = CascadeType.ALL)
+    private List<Story> story;
+
 //    @OneToMany(mappedBy = "epic", cascade = CascadeType.ALL)
 //    @JsonManagedReference("epic-sprint")
 //    private List<Sprint> sprintList;
+
+
 
     public Epic() {
     }

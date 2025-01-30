@@ -1,5 +1,6 @@
 package com.example.jira.services;
 
+import com.example.jira.exception.UserNotFoundException;
 import com.example.jira.models.User;
 import com.example.jira.models.UserPrincipal;
 import com.example.jira.repositories.UserRepository;
@@ -20,7 +21,11 @@ public class MyUserDetailsService implements UserDetailsService {
         User user1 = userRepo.findByUserName(username);
         if (user1 == null){
             System.out.println("hey");
-            throw new UsernameNotFoundException("User not found");
+            try {
+                throw new UserNotFoundException("User not found");
+            } catch (UserNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
         return new UserPrincipal(user1);
     }

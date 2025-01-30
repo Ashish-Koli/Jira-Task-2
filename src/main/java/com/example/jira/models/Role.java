@@ -1,5 +1,6 @@
 package com.example.jira.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -14,7 +15,7 @@ public class Role {
     @Column(name = "Title", length = 50)
     private String title;
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "user-role")
+    @JsonBackReference(value = "user-role")
     private List<User> user;
 
     public Role() {

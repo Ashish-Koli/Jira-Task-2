@@ -52,9 +52,9 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<TokenResponse> login(@RequestBody LoginDTO loginDTO){
+    public ResponseEntity<Object> login(@RequestBody LoginDTO loginDTO){
         TokenResponse tokenResponse = new TokenResponse();
-             tokenResponse.setToken(userService.verify(loginDTO));
+        tokenResponse.setToken(userService.verify(loginDTO));
         return new ResponseEntity<>(tokenResponse,HttpStatus.OK);
     }
 

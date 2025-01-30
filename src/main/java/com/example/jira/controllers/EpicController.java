@@ -38,8 +38,8 @@ public class EpicController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteEpic(@PathVariable int id){
+    public ResponseEntity<Object> deleteEpic(@PathVariable int id){
         epicService.deleteEpic(id);
-        return new ResponseEntity<>("Epic Deleted.", HttpStatus.OK);
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 }

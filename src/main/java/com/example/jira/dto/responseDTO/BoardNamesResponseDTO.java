@@ -7,6 +7,8 @@ public class BoardNamesResponseDTO {
     private int boardId;
     private String boardName;
 
+    public BoardNamesResponseDTO() {
+    }
     public BoardNamesResponseDTO(int boardId, String boardName) {
         this.boardId = boardId;
         this.boardName = boardName;
