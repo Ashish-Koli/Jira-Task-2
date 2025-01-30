@@ -40,8 +40,8 @@ public class SecurityConfig {
                 request.requestMatchers(
                         "user/register", "user/login", "role/allRoles")
                         .permitAll()
-//                        .anyRequest().permitAll());
-                        .anyRequest().authenticated());
+                        .anyRequest().permitAll());
+//                        .anyRequest().authenticated());
 //        http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
         http.sessionManagement(session->

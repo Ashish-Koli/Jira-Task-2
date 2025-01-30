@@ -32,6 +32,11 @@ public class SprintController {
         return new ResponseEntity<>(sprintService.getSprint(id), HttpStatus.OK);
     }
 
+    @GetMapping("/board/{id}")
+    public ResponseEntity<List<Sprint>> getSprintByBoardId(@PathVariable int id){
+        return new ResponseEntity<>(sprintService.getSprintByBoardId(id),HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Sprint> updateSprint(@RequestBody SprintDTO sprintDTO, @PathVariable  int id){
         return new ResponseEntity<>(sprintService.updateSprint(sprintDTO, id), HttpStatus.OK);

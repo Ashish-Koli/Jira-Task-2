@@ -13,4 +13,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Query("SELECT b FROM Board b WHERE b.project.projectId = :projectId")
     List<Board> findBoardsByProjectId(@Param("projectId") int projectId);
+
+    @Query("SELECT b FROM Board b JOIN b.project p JOIN p.userList u WHERE u.userId = :userId")
+    List<Board> findBoardsByUserId(@Param("userId") int userId);
 }

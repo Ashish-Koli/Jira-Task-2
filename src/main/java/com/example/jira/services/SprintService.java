@@ -38,6 +38,10 @@ public class SprintService {
         return sprintRepository.findById(id).orElseThrow();
     }
 
+    public List<Sprint> getSprintByBoardId(int id){
+        return sprintRepository.findSprintsByBoardId(id);
+    }
+
     public Sprint updateSprint(SprintDTO sprintDTO, int id){
         Sprint updateSprint = sprintRepository.findById(id).orElseThrow();
         updateSprint.setSprintNo(sprintDTO.getSprintNo());

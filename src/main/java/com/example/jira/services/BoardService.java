@@ -36,6 +36,10 @@ public class BoardService {
         return boardRepository.findBoardsByProjectId(projectId);
     }
 
+    public List<Board> getBoardsByUserId(int userId) {
+        return boardRepository.findBoardsByUserId(userId);
+    }
+
     public Board getBoard(int id){
         return boardRepository.findById(id).orElseThrow();
     }

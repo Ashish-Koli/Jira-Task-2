@@ -1,6 +1,7 @@
 package com.example.jira.controllers;
 
 import com.example.jira.dto.ProjectDTO;
+import com.example.jira.dto.responseDTO.ProjectNamesResponseDTO;
 import com.example.jira.models.Project;
 import com.example.jira.repositories.ProjectRepository;
 import com.example.jira.services.ProjectService;
@@ -37,6 +38,11 @@ public class ProjectController {
     @GetMapping("/user/{userId}")
     public List<Project> getProjectsByUserId(@PathVariable int userId) {
         return projectService.getProjectsByUserId(userId);
+    }
+
+    @GetMapping("/projectNames/user/{userId}")
+    public List<ProjectNamesResponseDTO> getProjectsNamesByUserId(@PathVariable int userId) {
+        return projectService.getProjectsNamesByUserId(userId);
     }
 
     @PutMapping("update/{id}")

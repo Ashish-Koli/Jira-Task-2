@@ -39,6 +39,13 @@ public class BoardController {
         return new ResponseEntity<>(boardService.getBoardsByProjectId(projectId),HttpStatus.OK);
     }
 
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Board>> getBoardsByUserId(@PathVariable int userId) {
+        return new ResponseEntity<>(boardService.getBoardsByUserId(userId),HttpStatus.OK);
+    }
+
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Board> updateBoard(@RequestBody BoardDTO boardDTO, @PathVariable int id){
         return new ResponseEntity<>(boardService.updateBoard(boardDTO, id), HttpStatus.OK);

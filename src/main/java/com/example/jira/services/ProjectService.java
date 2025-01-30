@@ -1,6 +1,7 @@
 package com.example.jira.services;
 
 import com.example.jira.dto.ProjectDTO;
+import com.example.jira.dto.responseDTO.ProjectNamesResponseDTO;
 import com.example.jira.models.*;
 import com.example.jira.repositories.ProjectRepository;
 import com.example.jira.repositories.UserRepository;
@@ -114,6 +115,15 @@ public class ProjectService {
 
     public List<Project> getProjectsByUserId(int userId) {
         return projectRepository.findProjectsByUserId(userId);
+    }
+
+    public List<ProjectNamesResponseDTO> getProjectsNamesByUserId(int id){
+       return projectRepository.findProjectsByUserId(id).stream().map((project -> {
+            ProjectNamesResponseDTO namesResponseDTO = new ProjectNamesResponseDTO();
+            namesResponseDTO.setProjectId(project.getProjectId());
+            namesResponseDTO.setProjectName(project.getProjectName());
+            return namesResponseDTO;
+        })).toList();
     }
 
     public List<Project> getAllProjects(){

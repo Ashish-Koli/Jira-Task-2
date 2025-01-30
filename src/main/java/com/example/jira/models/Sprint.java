@@ -1,9 +1,12 @@
 package com.example.jira.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -38,13 +41,17 @@ public class Sprint {
 
     @ManyToOne
     @JoinColumn(name = "board_id")
-    @JsonBackReference("board-sprint")
+    @JsonIgnore // Prevent recursion
     private Board board;
+
+    @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "sprint-story")
+    private List<Story> storyList;
 
     public Sprint() {
     }
 
-    public Sprint(int sprintId, String sprintNo, String sprintName, int sprintPoint, Date startDate, Date endDate, Release release, Board board) {
+    public Sprint(int sprintId, String sprintNo, String sprintName, int sprintPoint, Date startDate, Date endDate, Release release, Board board, List<Story> storyList) {
         this.sprintId = sprintId;
         this.sprintNo = sprintNo;
         this.sprintName = sprintName;
@@ -53,6 +60,7 @@ public class Sprint {
         this.endDate = endDate;
         this.release = release;
         this.board = board;
+        this.storyList = storyList;
     }
 
     public int getSprintId() {
@@ -117,6 +125,14 @@ public class Sprint {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public List<Story> getStoryList() {
+        return storyList;
+    }
+
+    public void setStoryList(List<Story> storyList) {
+        this.storyList = storyList;
     }
 }
 
