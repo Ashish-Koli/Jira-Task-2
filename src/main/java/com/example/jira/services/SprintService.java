@@ -1,6 +1,7 @@
 package com.example.jira.services;
 
 import com.example.jira.dto.SprintDTO;
+import com.example.jira.dto.responseDTO.SprintResponseDTO;
 import com.example.jira.models.Board;
 import com.example.jira.models.Sprint;
 import com.example.jira.repositories.SprintRepository;
@@ -30,16 +31,25 @@ public class SprintService {
         return sprintRepository.save(sprint);
     }
 
-    public List<Sprint> getALlSprint(){
-        return sprintRepository.findAll();
+    public List<Sprint> getSprintByBoardId(int id){
+        return sprintRepository.findSprintsByBoardId(id);
     }
-
     public Sprint getSprint(int id){
         return sprintRepository.findById(id).orElseThrow();
     }
 
-    public List<Sprint> getSprintByBoardId(int id){
-        return sprintRepository.findSprintsByBoardId(id);
+    public List<SprintResponseDTO> getALlSprint(){
+        return sprintRepository.findAll().stream().map(sprint -> {
+            SprintResponseDTO responseDTO =  new SprintResponseDTO();
+            responseDTO.setSprintId(sprint.getSprintId());
+            responseDTO.setSprintNo(sprint.getSprintNo());
+            responseDTO.setSprintName(sprint.getSprintName());
+            responseDTO.setSprintPoint(sprint.getSprintPoint());
+            responseDTO.setStartDate(sprint.getStartDate());
+            responseDTO.setEndDate(sprint.getEndDate());
+            responseDTO.setBoard(sprint.getBoard().getBoardName());
+            return responseDTO;
+        }).toList();
     }
 
     public Sprint updateSprint(SprintDTO sprintDTO, int id){

@@ -2,7 +2,7 @@ package com.example.jira.controllers;
 
 
 import com.example.jira.dto.LoginDTO;
-import com.example.jira.dto.TokenResponse;
+import com.example.jira.dto.responseDTO.TokenResponse;
 import com.example.jira.dto.UserDTO;
 import com.example.jira.dto.responseDTO.UserResponseDTO;
 import com.example.jira.models.User;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,7 +51,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody LoginDTO loginDTO){
+    public ResponseEntity<TokenResponse> login(@RequestBody LoginDTO loginDTO){
         TokenResponse tokenResponse = new TokenResponse();
         tokenResponse.setToken(userService.verify(loginDTO));
         return new ResponseEntity<>(tokenResponse,HttpStatus.OK);

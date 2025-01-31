@@ -2,6 +2,7 @@ package com.example.jira.services;
 
 import com.example.jira.dto.LoginDTO;
 import com.example.jira.dto.UserDTO;
+import com.example.jira.dto.responseDTO.TokenResponse;
 import com.example.jira.dto.responseDTO.UserResponseDTO;
 import com.example.jira.exception.UserNotFoundException;
 import com.example.jira.models.Role;
@@ -63,6 +64,7 @@ public class UserService {
         return userRepository.findById(id).orElseThrow();
     }
 
+
     public User updateUser(UserDTO user, int id){
         User updateUser = userRepository.findById(id).orElseThrow();
         updateUser.setUserName(user.getUserName());
@@ -83,8 +85,11 @@ public class UserService {
     public String verify(LoginDTO loginDTO){
         Authentication authentication =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUserName(), loginDTO.getPassword()));
-        if (authentication.isAuthenticated())
+        if (authentication.isAuthenticated()){
             return jwtService.generateToken(loginDTO.getUserName());
+        }
+
+
           return "fail";
     }
 }

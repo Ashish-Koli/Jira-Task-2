@@ -1,6 +1,7 @@
 package com.example.jira.controllers;
 
 import com.example.jira.dto.SprintDTO;
+import com.example.jira.dto.responseDTO.SprintResponseDTO;
 import com.example.jira.models.Sprint;
 import com.example.jira.services.SprintService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/sprint")
@@ -23,7 +25,7 @@ public class SprintController {
     }
 
     @GetMapping("/allSprint")
-    public ResponseEntity<List<Sprint>> getAllSprints(){
+    public ResponseEntity<List<SprintResponseDTO>> getAllSprints(){
         return new ResponseEntity<>(sprintService.getALlSprint(), HttpStatus.OK);
     }
 
@@ -43,8 +45,8 @@ public class SprintController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteSprint(@PathVariable int id){
+    public ResponseEntity<Object> deleteSprint(@PathVariable int id){
         sprintService.deleteSprint(id);
-        return new ResponseEntity<>("Sprint Deleted.", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
