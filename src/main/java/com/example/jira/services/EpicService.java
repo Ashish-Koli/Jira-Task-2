@@ -35,7 +35,8 @@ public class EpicService {
             epicResponseDTO.setEpicId(epic.getEpicId());
             epicResponseDTO.setEpicName(epic.getEpicName());
             epicResponseDTO.setDescription(epic.getDescription());
-            epicResponseDTO.setProject(epic.getProject().getProjectName());
+            Project project = projectService.getProject(epic.getProject().getProjectId());
+            epicResponseDTO.setProject(project.getProjectName());
             return epicResponseDTO;
         }).toList();
     }
