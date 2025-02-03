@@ -22,9 +22,13 @@ public class CommentsController {
         return new ResponseEntity<>(commentsService.createComment(commentDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/allComment")
-    public ResponseEntity<List<Comment>> getAllComments(){
-        return new ResponseEntity<>(commentsService.getAllComments(), HttpStatus.OK);
+//    @GetMapping("/allComment")
+//    public ResponseEntity<List<Comment>> getAllComments(){
+//        return new ResponseEntity<>(commentsService.getAllComments(), HttpStatus.OK);
+//    }
+    @GetMapping("/allComment/{id}")
+    public ResponseEntity<List<Comment>> getAllComments(@PathVariable int id) {
+        return new ResponseEntity<>(commentsService.getAllComments(id), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -38,8 +42,8 @@ public class CommentsController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteComment(@PathVariable int id){
+    public ResponseEntity<Object> deleteComment(@PathVariable int id){
         commentsService.deleteComment(id);
-        return new ResponseEntity<>("Comment Deleted.", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -6,12 +6,15 @@ public class BoardNamesResponseDTO {
 
     private int boardId;
     private String boardName;
+    private String project;
 
     public BoardNamesResponseDTO() {
     }
-    public BoardNamesResponseDTO(int boardId, String boardName) {
+
+    public BoardNamesResponseDTO(int boardId, String boardName, String project) {
         this.boardId = boardId;
         this.boardName = boardName;
+        this.project = project;
     }
 
     public int getBoardId() {
@@ -28,5 +31,13 @@ public class BoardNamesResponseDTO {
 
     public void setBoardName(String boardName) {
         this.boardName = boardName;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
     }
 }

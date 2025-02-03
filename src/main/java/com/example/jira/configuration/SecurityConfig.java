@@ -38,10 +38,10 @@ public class SecurityConfig {
         http.csrf(customizer -> customizer.disable());
         http.authorizeHttpRequests(request->
                 request.requestMatchers(
-                        "user/register", "user/login", "role/allRoles")
+                        "user/register", "user/login", "role/**","user/create")
                         .permitAll()
-                        .anyRequest().permitAll());
-//                        .anyRequest().authenticated());
+//                        .anyRequest().permitAll());
+                        .anyRequest().authenticated());
 //        http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
         http.sessionManagement(session->

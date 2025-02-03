@@ -41,6 +41,18 @@ public class EpicService {
         }).toList();
     }
 
+    public List<EpicResponseDTO> getAllEpicsByUserId(int id){
+        return epicRepository.findEpicsByUserId(id).stream().map(epic -> {
+            EpicResponseDTO epicResponseDTO = new EpicResponseDTO();
+            epicResponseDTO.setEpicId(epic.getEpicId());
+            epicResponseDTO.setEpicName(epic.getEpicName());
+            epicResponseDTO.setDescription(epic.getDescription());
+            Project project = projectService.getProject(epic.getProject().getProjectId());
+            epicResponseDTO.setProject(project.getProjectName());
+            return epicResponseDTO;
+        }).toList();
+    }
+
     public Epic getEpic(int id){
         return epicRepository.findById(id).orElseThrow();
     }

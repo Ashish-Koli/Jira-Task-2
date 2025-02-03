@@ -13,4 +13,11 @@ public interface SprintRepository extends JpaRepository<Sprint,Integer> {
 
     @Query("SELECT s FROM Sprint s WHERE s.board.boardId = :boardId")
     List<Sprint> findSprintsByBoardId(@Param("boardId") int boardId);
+
+    @Query("SELECT s FROM Sprint s " +
+            "LEFT JOIN s.board b " +
+            "LEFT JOIN b.project p " +
+            "LEFT JOIN p.userList u " +
+            "WHERE u.userId = :userId")
+    List<Sprint> findSprintsByUserId(@Param("userId") int userId);
 }

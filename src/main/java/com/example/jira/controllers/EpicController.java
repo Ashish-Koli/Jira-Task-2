@@ -27,6 +27,10 @@ public class EpicController {
     public ResponseEntity<List<EpicResponseDTO>> getAllEpics(){
         return new ResponseEntity<>(epicService.getAllEpics(), HttpStatus.OK);
     }
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<EpicResponseDTO>> getAllEpicBYUserId(@PathVariable int id){
+        return new ResponseEntity<>(epicService.getAllEpicsByUserId(id), HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Epic> getEpic(@PathVariable int id){

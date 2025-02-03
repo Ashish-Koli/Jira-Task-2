@@ -25,7 +25,6 @@ public class Story {
     @ManyToOne
     @JoinColumn(name = "BoardId")
     @JsonIgnore // Prevent recursion
-
     private Board board;
 
     @ManyToOne
@@ -39,7 +38,6 @@ public class Story {
 
     @ManyToOne
     @JoinColumn(name = "EpicId")
-    @JsonIgnore
     private Epic epic;
 
     public Story() {

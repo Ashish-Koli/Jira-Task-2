@@ -11,7 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/storyStatus")
-public class StoryStatusController {
+public class
+StoryStatusController {
 
     @Autowired
     private StoryStatusService storyStatusService;

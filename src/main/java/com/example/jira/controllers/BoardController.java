@@ -42,8 +42,13 @@ public class BoardController {
 
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Board>> getBoardsByUserId(@PathVariable int userId) {
+    public ResponseEntity<List<BoardNamesResponseDTO>> getBoardsByUserId(@PathVariable int userId) {
         return new ResponseEntity<>(boardService.getBoardsByUserId(userId),HttpStatus.OK);
+    }
+
+    @GetMapping("/allBoards/user/{userId}")
+    public ResponseEntity<List<Board>> getAllBoardsByUserId(@PathVariable int userId) {
+        return new ResponseEntity<>(boardService.getAllBoardsByUserId(userId),HttpStatus.OK);
     }
 
 

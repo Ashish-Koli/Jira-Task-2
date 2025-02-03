@@ -47,7 +47,17 @@ public class BoardService {
         return boardRepository.findBoardsByProjectId(projectId);
     }
 
-    public List<Board> getBoardsByUserId(int userId) {
+    public List<BoardNamesResponseDTO> getBoardsByUserId(int userId) {
+        return boardRepository.findBoardsByUserId(userId).stream().map(board -> {
+            BoardNamesResponseDTO responseDTO = new BoardNamesResponseDTO();
+            responseDTO.setBoardId(board.getBoardId());
+            responseDTO.setBoardName(board.getBoardName());
+            responseDTO.setProject(board.getProject().getProjectName());
+            return responseDTO;
+        }
+        ).toList();
+    }
+    public List<Board> getAllBoardsByUserId(int userId) {
         return boardRepository.findBoardsByUserId(userId);
     }
 

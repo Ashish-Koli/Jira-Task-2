@@ -1,6 +1,7 @@
 package com.example.jira.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -20,10 +21,10 @@ public class User {
     private String password;
     @ManyToOne
     @JoinColumn(name = "RoleId")
-    @JsonManagedReference(value = "user-role")
+    @JsonBackReference(value = "user-role")
     private Role role;
     @ManyToMany(mappedBy = "userList")
-    @JsonBackReference(value = "project-user")
+    @JsonIgnore
     private List<Project> projectList;
 
 

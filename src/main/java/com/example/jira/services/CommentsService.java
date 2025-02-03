@@ -25,8 +25,8 @@ public class CommentsService {
         return commentsRepository.save(comment);
     }
 
-    public List<Comment> getAllComments(){
-        return commentsRepository.findAll();
+    public List<Comment> getAllComments(int id){
+        return commentsRepository.findByStory_StoryId(id);
     }
 
     public Comment getComment(int id){
