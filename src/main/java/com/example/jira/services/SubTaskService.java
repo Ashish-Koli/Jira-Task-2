@@ -30,6 +30,9 @@ public class SubTaskService {
         return subTaskRepository.findAll();
     }
 
+    public List<SubTask> getAllSubTaskByStoryId(int id){
+        return subTaskRepository.findByStory_StoryId(id);
+    }
     public SubTask getSubTask(int id){
         return subTaskRepository.findById(id).orElseThrow();
     }
