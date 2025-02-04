@@ -6,16 +6,14 @@ public class StoryDTO {
     private String description;
     private int storyStatus;
     private int board;
-    private int user;
     private int sprint;
     private int epic;
 
-    public StoryDTO(String storyName, String description, int storyStatus, int board, int user, int sprint, int epic) {
+    public StoryDTO(String storyName, String description, int storyStatus, int board, int sprint, int epic) {
         this.storyName = storyName;
         this.description = description;
         this.storyStatus = storyStatus;
         this.board = board;
-        this.user = user;
         this.sprint = sprint;
         this.epic = epic;
     }
@@ -50,14 +48,6 @@ public class StoryDTO {
 
     public void setBoard(int board) {
         this.board = board;
-    }
-
-    public int getUser() {
-        return user;
-    }
-
-    public void setUser(int user) {
-        this.user = user;
     }
 
     public int getSprint() {

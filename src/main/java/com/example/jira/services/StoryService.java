@@ -1,9 +1,11 @@
 package com.example.jira.services;
 
 import com.example.jira.dto.StoryDTO;
+import com.example.jira.dto.UpdateStoryStatusDTO;
 import com.example.jira.models.*;
 import com.example.jira.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +26,14 @@ public class StoryService {
     private SprintService sprintService;
     @Autowired
     private EpicService epicService;
+    @Autowired
+    private UserRepository userRepository;
 
     public Story createStory(StoryDTO storyDTO){
         StoryStatus storyStatus = storyStatusService.getStoryStatus(storyDTO.getStoryStatus());
         Board board = boardService.getBoard(storyDTO.getBoard());
-        User user = userService.getUser(storyDTO.getUser());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUserName(username);
         Sprint sprint = sprintService.getSprint(storyDTO.getSprint());
         Epic epic = epicService.getEpic(storyDTO.getEpic());
         Story story = new Story();
@@ -39,6 +44,14 @@ public class StoryService {
         story.setUser(user);
         story.setSprint(sprint);
         story.setEpic(epic);
+        return storyRepository.save(story);
+    }
+
+    public Story updateStoryStatus(UpdateStoryStatusDTO statusDTO, int id){
+        Story story = storyRepository.findById(id).orElseThrow();
+        StoryStatus storyStatus = storyStatusService.getStoryStatus(statusDTO.getStoryStatusId());
+        story.setStoryStatus(storyStatus);
+        System.out.println(story.getStoryStatus().getName());
         return storyRepository.save(story);
     }
 
@@ -54,7 +67,8 @@ public class StoryService {
         Story updateStory = storyRepository.findById(id).orElseThrow();
         StoryStatus storyStatus = storyStatusService.getStoryStatus(storyDTO.getStoryStatus());
         Board board = boardService.getBoard(storyDTO.getBoard());
-        User user = userService.getUser(storyDTO.getUser());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUserName(username);
         Sprint sprint = sprintService.getSprint(storyDTO.getSprint());
         Epic epic = epicService.getEpic(storyDTO.getEpic());
         updateStory.setStoryName(storyDTO.getStoryName());

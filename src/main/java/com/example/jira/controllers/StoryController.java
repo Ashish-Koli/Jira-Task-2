@@ -1,6 +1,7 @@
 package com.example.jira.controllers;
 
 import com.example.jira.dto.StoryDTO;
+import com.example.jira.dto.UpdateStoryStatusDTO;
 import com.example.jira.models.Story;
 import com.example.jira.services.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/story")
@@ -37,10 +39,15 @@ public class StoryController {
         return new ResponseEntity<>(storyService.updateStory(storyDTO, id), HttpStatus.OK);
     }
 
+    @PutMapping("update/storyStatus/{id}")
+    public ResponseEntity<Story> updateStoryStatus(@RequestBody UpdateStoryStatusDTO statusDTO, @PathVariable int id){
+        return new ResponseEntity<>(storyService.updateStoryStatus(statusDTO, id), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteStory(@PathVariable int id){
+    public ResponseEntity<Object> deleteStory(@PathVariable int id){
         storyService.deleteStory(id);
-        return new ResponseEntity<>("Story Deleted.", HttpStatus.OK);
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 
 

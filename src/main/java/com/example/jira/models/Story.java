@@ -1,5 +1,8 @@
 package com.example.jira.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +24,7 @@ public class Story {
 
     @ManyToOne
     @JoinColumn(name = "BoardId")
+    @JsonIgnore // Prevent recursion
     private Board board;
 
     @ManyToOne
@@ -29,6 +33,7 @@ public class Story {
 
     @ManyToOne
     @JoinColumn(name = "SprintId")
+    @JsonBackReference(value = "sprint-story")
     private Sprint sprint;
 
     @ManyToOne

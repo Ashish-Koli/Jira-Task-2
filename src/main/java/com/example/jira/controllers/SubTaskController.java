@@ -1,6 +1,7 @@
 package com.example.jira.controllers;
 
 import com.example.jira.dto.SubTaskDTO;
+import com.example.jira.models.Comment;
 import com.example.jira.models.SubTask;
 import com.example.jira.services.SubTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class SubTaskController {
     @GetMapping("/{id}")
     public ResponseEntity<SubTask> getSubTask(@PathVariable int id){
         return new ResponseEntity<>(subTaskService.getSubTask(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/allSubTask/{id}")
+    public ResponseEntity<List<SubTask>> getAllSubTaskByStoryId(@PathVariable int id) {
+        return new ResponseEntity<>(subTaskService.getAllSubTaskByStoryId(id), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")

@@ -14,29 +14,35 @@ public class Project {
     private int projectId;
     @Column(name = "ProjectName", length = 100)
     private String projectName;
-    @Column(name = "ProjectDescription", length = 100)
+    @Column(name = "ProjectDescription", length = 500)
     private String projectDescription;
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "project-board")
     private List<Board> boardList;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "project-epic")
+    private List<Epic> epicList;
+
     @ManyToMany
     @JoinTable(
             name = "project_users",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    @JsonManagedReference
+    @JsonManagedReference(value = "project-user")
     private List<User> userList;
 
     public Project() {
     }
 
-    public Project(int projectId, String projectName, String projectDescription, List<Board> boardList) {
+    public Project(int projectId, String projectName, String projectDescription, List<Board> boardList, List<Epic> epicList, List<User> userList) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.boardList = boardList;
-
+        this.epicList = epicList;
+        this.userList = userList;
     }
 
     public int getProjectId() {
@@ -71,11 +77,19 @@ public class Project {
         this.boardList = boardList;
     }
 
-//    public List<User> getUserList() {
-//        return userList;
-//    }
-//
-//    public void setUserList(List<User> userList) {
-//        this.userList = userList;
-//    }
+    public List<Epic> getEpicList() {
+        return epicList;
+    }
+
+    public void setEpicList(List<Epic> epicList) {
+        this.epicList = epicList;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
 }

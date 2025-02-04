@@ -1,7 +1,11 @@
 package com.example.jira.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Epic {
@@ -16,13 +20,28 @@ public class Epic {
     @Column(name = "Description", length = 255)
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    @JsonBackReference(value = "project-epic")
+    private Project project;
+
+    @OneToMany(mappedBy = "epic", cascade = CascadeType.ALL)
+    private List<Story> story;
+
+//    @OneToMany(mappedBy = "epic", cascade = CascadeType.ALL)
+//    @JsonManagedReference("epic-sprint")
+//    private List<Sprint> sprintList;
+
+
+
     public Epic() {
     }
 
-    public Epic(int epicId, String epicName, String description) {
+    public Epic(int epicId, String epicName, String description, Project project) {
         this.epicId = epicId;
         this.epicName = epicName;
         this.description = description;
+        this.project = project;
     }
 
     public int getEpicId() {
@@ -47,5 +66,13 @@ public class Epic {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }
