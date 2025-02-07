@@ -31,11 +31,11 @@ public class ExceptionHandlerClass {
 
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(UserNotFoundException.class)
-    public String noSuchElementException(UserNotFoundException e){
+    public Map<String, String> noSuchElementException(UserNotFoundException e){
         String msg = e.getMessage();
-//        Map<String, String> errorMap = new HashMap<>();
-//        errorMap.put("Error",msg);
-        return msg;
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("Error",msg);
+        return errorMap;
     }
 
 

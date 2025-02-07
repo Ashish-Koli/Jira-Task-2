@@ -88,8 +88,6 @@ public class UserService {
         if (authentication.isAuthenticated()){
             return jwtService.generateToken(loginDTO.getUserName());
         }
-
-
-          return "fail";
+        return "fail";
     }
 }
