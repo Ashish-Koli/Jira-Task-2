@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReleaseRepository extends JpaRepository<Release, Integer> {
+
+    Release findBySprint_SprintId(int id);
 }

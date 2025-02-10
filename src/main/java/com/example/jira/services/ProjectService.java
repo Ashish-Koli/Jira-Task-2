@@ -56,7 +56,7 @@ public class ProjectService {
         List<User> userList = new ArrayList<>();
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 //        String username = "Ashish";
-        User user1 = userRepository.findByUserName(username);
+        User user1 = userRepository.findByUserName(username).orElseThrow();
         userList.add(user1); // add the current user
         List<Integer> userDTOList = projectDTO.getUserList();
         for (int i=0; i<projectDTO.getUserList().size(); i++){
@@ -100,7 +100,7 @@ public class ProjectService {
         List<Integer> userDTOList = projectDTO.getUserList();
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 //        String username = "Ashish";
-        User user1 = userRepository.findByUserName(username);
+        User user1 = userRepository.findByUserName(username).orElseThrow();
         userList.add(user1); // add the current user
         for (int i=0; i<projectDTO.getUserList().size(); i++){
             User user = userService.getUser(userDTOList.get(i));

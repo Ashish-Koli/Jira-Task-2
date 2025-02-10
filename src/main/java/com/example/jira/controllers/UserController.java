@@ -59,7 +59,7 @@ public class UserController {
     public ResponseEntity<TokenResponse> login(@RequestBody LoginDTO loginDTO){
         TokenResponse tokenResponse = new TokenResponse();
         tokenResponse.setToken(userService.verify(loginDTO));
-        User user = userRepository.findByUserName(loginDTO.getUserName());
+        User user = userRepository.findByUserName(loginDTO.getUserName()).orElseThrow();
         tokenResponse.setUserId(user.getUserId());
         tokenResponse.setRole(user.getRole().getTitle());
         return new ResponseEntity<>(tokenResponse,HttpStatus.OK);

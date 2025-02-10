@@ -33,7 +33,7 @@ public class StoryService {
         StoryStatus storyStatus = storyStatusService.getStoryStatus(storyDTO.getStoryStatus());
         Board board = boardService.getBoard(storyDTO.getBoard());
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByUserName(username);
+        User user = userRepository.findByUserName(username).orElseThrow();
         Sprint sprint = sprintService.getSprint(storyDTO.getSprint());
         Epic epic = epicService.getEpic(storyDTO.getEpic());
         Story story = new Story();
@@ -68,7 +68,7 @@ public class StoryService {
         StoryStatus storyStatus = storyStatusService.getStoryStatus(storyDTO.getStoryStatus());
         Board board = boardService.getBoard(storyDTO.getBoard());
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByUserName(username);
+        User user = userRepository.findByUserName(username).orElseThrow();
         Sprint sprint = sprintService.getSprint(storyDTO.getSprint());
         Epic epic = epicService.getEpic(storyDTO.getEpic());
         updateStory.setStoryName(storyDTO.getStoryName());
