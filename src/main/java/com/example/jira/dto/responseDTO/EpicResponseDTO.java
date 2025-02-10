@@ -4,16 +4,18 @@ public class EpicResponseDTO {
     private int epicId;
     private String epicName;
     private String description;
+    private int projectId;
     private String project;
 
     public EpicResponseDTO() {
 
     }
 
-    public EpicResponseDTO(int epicId, String epicName, String description, String project) {
+    public EpicResponseDTO(int epicId, String epicName, String description, int projectId, String project) {
         this.epicId = epicId;
         this.epicName = epicName;
         this.description = description;
+        this.projectId = projectId;
         this.project = project;
     }
 
@@ -47,5 +49,13 @@ public class EpicResponseDTO {
 
     public void setProject(String project) {
         this.project = project;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 }

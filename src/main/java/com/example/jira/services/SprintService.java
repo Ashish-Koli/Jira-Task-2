@@ -52,6 +52,7 @@ public class SprintService {
             responseDTO.setSprintPoint(sprint.getSprintPoint());
             responseDTO.setStartDate(sprint.getStartDate());
             responseDTO.setEndDate(sprint.getEndDate());
+            responseDTO.setBoardId(sprint.getBoard().getBoardId());
             responseDTO.setBoard(sprint.getBoard().getBoardName());
             Release release = releaseService.getReleaseBySprintId(sprint.getSprintId());
             responseDTO.setReleaseId(release.getReleaseId());

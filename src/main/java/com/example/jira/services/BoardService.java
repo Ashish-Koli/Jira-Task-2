@@ -52,6 +52,7 @@ public class BoardService {
             BoardNamesResponseDTO responseDTO = new BoardNamesResponseDTO();
             responseDTO.setBoardId(board.getBoardId());
             responseDTO.setBoardName(board.getBoardName());
+            responseDTO.setProjectId(board.getProject().getProjectId());
             responseDTO.setProject(board.getProject().getProjectName());
             return responseDTO;
         }
