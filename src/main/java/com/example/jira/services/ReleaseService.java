@@ -35,11 +35,21 @@ public class ReleaseService {
         return releaseRepository.findById(id).orElseThrow();
     }
 
+    public Release getReleaseBySprintId(int id){
+        return releaseRepository.findBySprint_SprintId(id);
+    }
+
     public Release updateRelease(ReleaseDTO releaseDTO, int id){
         Release updateRelease = releaseRepository.findById(id).orElseThrow();
         updateRelease.setReleaseName(releaseDTO.getReleaseName());
         Sprint updateSprint = sprintRepository.findById(releaseDTO.getSprint()).orElseThrow();
         updateRelease.setSprint(updateSprint);
+        return releaseRepository.save(updateRelease);
+    }
+
+    public Release updateReleaseBySprintId(ReleaseDTO releaseDTO){
+        Release updateRelease = releaseRepository.findBySprint_SprintId(releaseDTO.getSprint());
+        updateRelease.setReleaseName(releaseDTO.getReleaseName());
         return releaseRepository.save(updateRelease);
     }
 

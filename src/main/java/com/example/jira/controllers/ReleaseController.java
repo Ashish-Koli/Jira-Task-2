@@ -32,9 +32,20 @@ public class ReleaseController {
         return new ResponseEntity<>(releaseService.getRelease(id), HttpStatus.FOUND);
     }
 
+    @GetMapping("/release/{id}")
+    public ResponseEntity<Release> getReleaseBySprintId(@PathVariable int id){
+        return new ResponseEntity<>(releaseService.getReleaseBySprintId(id), HttpStatus.FOUND);
+    }
+
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Release> updateRelease(@RequestBody ReleaseDTO releaseDTO,@PathVariable int id){
         return new ResponseEntity<>(releaseService.updateRelease(releaseDTO, id), HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Release> updateReleaseBySprintId(@RequestBody ReleaseDTO releaseDTO){
+        return new ResponseEntity<>(releaseService.updateReleaseBySprintId(releaseDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

@@ -3,6 +3,7 @@ package com.example.jira.services;
 import com.example.jira.dto.SprintDTO;
 import com.example.jira.dto.responseDTO.SprintResponseDTO;
 import com.example.jira.models.Board;
+import com.example.jira.models.Release;
 import com.example.jira.models.Sprint;
 import com.example.jira.models.Story;
 import com.example.jira.repositories.SprintRepository;
@@ -22,6 +23,9 @@ public class SprintService {
 
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private ReleaseService releaseService;
 
     public Sprint createSprint(SprintDTO sprintDTO){
         Sprint sprint = new Sprint();
@@ -49,6 +53,9 @@ public class SprintService {
             responseDTO.setStartDate(sprint.getStartDate());
             responseDTO.setEndDate(sprint.getEndDate());
             responseDTO.setBoard(sprint.getBoard().getBoardName());
+            Release release = releaseService.getReleaseBySprintId(sprint.getSprintId());
+            responseDTO.setReleaseId(release.getReleaseId());
+            responseDTO.setReleaseName(release.getReleaseName());
             return responseDTO;
         }).toList();
     }

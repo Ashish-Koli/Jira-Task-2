@@ -1,6 +1,7 @@
 package com.example.jira.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,7 @@ public class Release {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SprintId")
+    @JsonIgnore
     private Sprint sprint;
 
     public Release() {
