@@ -44,6 +44,13 @@ public class SecurityConfig {
                         .requestMatchers("board/create","board/update/{id}","board/delete/{id}" ).hasAuthority("Admin")
                         .requestMatchers("sprint/create","sprint/update/{id}","sprint/delete/{id}" ).hasAuthority("Admin")
                         .requestMatchers("epic/create","epic/update/{id}","epic/delete/{id}" ).hasAuthority("Admin")
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v2/api-docs",
+                                "/configuration/ui",
+                                "/swagger-resources/**",
+                                "/configuration/security",
+                                "/webjars/**",
+                                "/v3/api-docs/**").permitAll()
 //                        .anyRequest().permitAll());
                         .anyRequest().authenticated());
 //        http.formLogin(Customizer.withDefaults());

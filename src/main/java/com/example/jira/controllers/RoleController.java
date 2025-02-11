@@ -1,5 +1,6 @@
 package com.example.jira.controllers;
 
+import com.example.jira.dto.responseDTO.RoleResponseDTO;
 import com.example.jira.models.Role;
 import com.example.jira.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class RoleController {
     RoleService roleService;
 
     @PostMapping("/create")
-    public ResponseEntity<Role> createRole(@RequestBody Role role){
+    public ResponseEntity<RoleResponseDTO> createRole(@RequestBody Role role){
         return new ResponseEntity<>(roleService.createRole(role), HttpStatus.CREATED);
     }
 

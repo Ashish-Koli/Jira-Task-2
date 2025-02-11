@@ -1,6 +1,7 @@
 package com.example.jira.controllers;
 
 import com.example.jira.dto.ProjectDTO;
+import com.example.jira.dto.ProjectDTOs.ProjectResponseDTO;
 import com.example.jira.dto.responseDTO.ProjectNamesResponseDTO;
 import com.example.jira.models.Project;
 import com.example.jira.repositories.ProjectRepository;
@@ -20,12 +21,12 @@ public class ProjectController {
     private ProjectService projectService;
 
     @PostMapping("/create")
-    public ResponseEntity<Project> createProject(@RequestBody ProjectDTO projectDTO){
+    public ResponseEntity<ProjectResponseDTO> createProject(@RequestBody ProjectDTO projectDTO){
         return  new ResponseEntity<>(projectService.createProject(projectDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/allProject")
-    public ResponseEntity<List<Project>> getAllProjects(){
+    public ResponseEntity<List<ProjectResponseDTO>> getAllProjects(){
         return new ResponseEntity<>(projectService.getAllProjects(), HttpStatus.OK);
     }
 
@@ -35,7 +36,7 @@ public class ProjectController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<Project> getProjectsByUserId(@PathVariable int userId) {
+    public List<ProjectResponseDTO> getProjectsByUserId(@PathVariable int userId) {
         return projectService.getProjectsByUserId(userId);
     }
 
@@ -45,8 +46,7 @@ public class ProjectController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<Project> updateProject(@RequestBody ProjectDTO projectDTO, @PathVariable  int id){
-
+    public ResponseEntity<ProjectResponseDTO> updateProject(@RequestBody ProjectDTO projectDTO, @PathVariable  int id){
         return new ResponseEntity<>(projectService.updateProject(projectDTO, id), HttpStatus.OK);
     }
 
