@@ -27,8 +27,6 @@ public class ExceptionHandlerClass {
         return errorMap;
     }
 
-
-
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(UserNotFoundException.class)
     public Map<String, String> noSuchElementException(UserNotFoundException e){
@@ -38,17 +36,6 @@ public class ExceptionHandlerClass {
         return errorMap;
     }
 
-
-
-
-//    @ExceptionHandler(ConfigDataResourceNotFoundException.class)
-//    public ResponseEntity<Map<String, String>> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
-//        Map<String, String> errorDetails = new HashMap<>();
-//        errorDetails.put("message", ex.getMessage());
-//        errorDetails.put("details", request.getDescription(false));
-//
-//        return new ResponseEntity<>       (errorDetails, HttpStatus.NOT_FOUND);
-//    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGlobalException(Exception ex, WebRequest request) {

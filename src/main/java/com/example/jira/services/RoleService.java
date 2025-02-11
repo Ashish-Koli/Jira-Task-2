@@ -1,5 +1,6 @@
 package com.example.jira.services;
 
+import com.example.jira.dto.responseDTO.RoleResponseDTO;
 import com.example.jira.models.Role;
 import com.example.jira.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,12 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public Role createRole(Role role){
-        return  roleRepository.save(role);
+    public RoleResponseDTO createRole(Role role){
+        roleRepository.save(role);
+        RoleResponseDTO roleResponseDTO = new RoleResponseDTO();
+        roleResponseDTO.setId(role.getId());
+        roleResponseDTO.setTitle(role.getTitle());
+        return  roleResponseDTO;
     }
 
     public List<Role> getAllRoles(){

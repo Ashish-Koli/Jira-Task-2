@@ -9,6 +9,7 @@ public class SprintResponseDTO {
     private int sprintPoint;
     private Date startDate;
     private Date endDate;
+    private int boardId;
     private String board;
     private int releaseId;
     private String releaseName;
@@ -16,13 +17,14 @@ public class SprintResponseDTO {
     public SprintResponseDTO() {
     }
 
-    public SprintResponseDTO(int sprintId, String sprintNo, String sprintName, int sprintPoint, Date startDate, Date endDate, String board, int releaseId, String releaseName) {
+    public SprintResponseDTO(int sprintId, String sprintNo, String sprintName, int sprintPoint, Date startDate, Date endDate,int boardId, String board, int releaseId, String releaseName) {
         this.sprintId = sprintId;
         this.sprintNo = sprintNo;
         this.sprintName = sprintName;
         this.sprintPoint = sprintPoint;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.boardId = boardId;
         this.board = board;
         this.releaseId = releaseId;
         this.releaseName = releaseName;
@@ -74,6 +76,14 @@ public class SprintResponseDTO {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public int getBoardId() {
+        return boardId;
+    }
+
+    public void setBoardId(int boardId) {
+        this.boardId = boardId;
     }
 
     public String getBoard() {
