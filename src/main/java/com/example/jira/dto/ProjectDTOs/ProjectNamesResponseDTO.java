@@ -1,4 +1,4 @@
-package com.example.jira.dto.responseDTO;
+package com.example.jira.dto.ProjectDTOs;
 
 public class ProjectNamesResponseDTO {
 

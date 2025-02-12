@@ -1,10 +1,9 @@
 package com.example.jira.services;
 
 import com.example.jira.dto.LoginDTO;
-import com.example.jira.dto.UserDTO;
-import com.example.jira.dto.responseDTO.TokenResponse;
-import com.example.jira.dto.responseDTO.UserResponseDTO;
-import com.example.jira.exception.UserNotFoundException;
+import com.example.jira.dto.UserDTOs.UserDTO;
+import com.example.jira.dto.UserDTOs.UserResponseDTO;
+import com.example.jira.dto.responseDTO.RoleResponseDTO;
 import com.example.jira.models.Role;
 import com.example.jira.models.User;
 import com.example.jira.repositories.RoleRepository;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -38,14 +36,26 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
 
-    public User createUser(UserDTO user){
-        Role role = roleRepository.findById(user.getRole()).orElseThrow();
+    public UserResponseDTO createUser(UserDTO user){
+
         User newUser = new User();
         newUser.setUserName(user.getUserName());
         newUser.setEmail(user.getEmail());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        Role role = roleRepository.findById(user.getRole()).orElseThrow();
         newUser.setRole(role);
-        return userRepository.save(newUser);
+        User user1 = userRepository.save(newUser);
+
+        UserResponseDTO userResponseDTO = new UserResponseDTO();
+        userResponseDTO.setUserId(user1.getUserId());
+        userResponseDTO.setUserName(user1.getUserName());
+        userResponseDTO.setEmail(user1.getEmail());
+        RoleResponseDTO roleResponseDTO = new RoleResponseDTO();
+        roleResponseDTO.setId(user1.getRole().getId());
+        roleResponseDTO.setTitle(user1.getRole().getTitle());
+        userResponseDTO.setRole(roleResponseDTO);
+
+        return userResponseDTO;
     }
 
     public List<UserResponseDTO> getAllUsers(){
@@ -55,27 +65,39 @@ public class UserService {
             userResponseDTO.setUserId(user.getUserId());
             userResponseDTO.setUserName(user.getUserName());
             userResponseDTO.setEmail(user.getEmail());
-            userResponseDTO.setRole(user.getRole().getTitle());
+            RoleResponseDTO roleResponseDTO = new RoleResponseDTO();
+            roleResponseDTO.setId(user.getRole().getId());
+            roleResponseDTO.setTitle(user.getRole().getTitle());
+            userResponseDTO.setRole(roleResponseDTO);
             return userResponseDTO;
         }).toList();
     }
 
     public User getUser(int id){
         return userRepository.findById(id).orElseThrow();
+
     }
 
 
-    public User updateUser(UserDTO user, int id){
+    public UserResponseDTO updateUser(UserDTO user, int id){
         User updateUser = userRepository.findById(id).orElseThrow();
         updateUser.setUserName(user.getUserName());
         updateUser.setEmail(user.getEmail());
         updateUser.setPassword(passwordEncoder.encode(user.getPassword()));
-
         Role role = roleRepository.findById(user.getRole()).orElseThrow();
-
         updateUser.setRole(role);
+        User user1 = userRepository.save(updateUser);
 
-        return userRepository.save(updateUser);
+        UserResponseDTO userResponseDTO = new UserResponseDTO();
+        userResponseDTO.setUserId(user1.getUserId());
+        userResponseDTO.setUserName(user1.getUserName());
+        userResponseDTO.setEmail(user1.getEmail());
+        RoleResponseDTO roleResponseDTO = new RoleResponseDTO();
+        roleResponseDTO.setId(user1.getRole().getId());
+        roleResponseDTO.setTitle(user1.getRole().getTitle());
+        userResponseDTO.setRole(roleResponseDTO);
+
+        return userResponseDTO;
     }
 
     public void deleteUser(int id){

@@ -1,21 +1,21 @@
-package com.example.jira.dto.responseDTO;
+package com.example.jira.dto.EpicDTOs;
+
+import com.example.jira.dto.ProjectDTOs.ProjectNamesResponseDTO;
 
 public class EpicResponseDTO {
     private int epicId;
     private String epicName;
     private String description;
-    private int projectId;
-    private String project;
+    private ProjectNamesResponseDTO project;
 
     public EpicResponseDTO() {
 
     }
 
-    public EpicResponseDTO(int epicId, String epicName, String description, int projectId, String project) {
+    public EpicResponseDTO(int epicId, String epicName, String description, ProjectNamesResponseDTO project) {
         this.epicId = epicId;
         this.epicName = epicName;
         this.description = description;
-        this.projectId = projectId;
         this.project = project;
     }
 
@@ -43,19 +43,11 @@ public class EpicResponseDTO {
         this.description = description;
     }
 
-    public String getProject() {
+    public ProjectNamesResponseDTO getProject() {
         return project;
     }
 
-    public void setProject(String project) {
+    public void setProject(ProjectNamesResponseDTO project) {
         this.project = project;
-    }
-
-    public int getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
     }
 }

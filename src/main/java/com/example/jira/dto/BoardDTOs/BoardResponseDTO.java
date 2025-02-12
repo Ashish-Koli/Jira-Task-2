@@ -1,21 +1,20 @@
-package com.example.jira.dto.responseDTO;
+package com.example.jira.dto.BoardDTOs;
 
 
-public class BoardNamesResponseDTO {
+import com.example.jira.dto.ProjectDTOs.ProjectNamesResponseDTO;
 
+public class BoardResponseDTO {
 
     private int boardId;
     private String boardName;
-    private int projectId;
-    private String project;
+    private ProjectNamesResponseDTO project;
 
-    public BoardNamesResponseDTO() {
+    public BoardResponseDTO() {
     }
 
-    public BoardNamesResponseDTO(int boardId, String boardName, int projectId, String project) {
+    public BoardResponseDTO(int boardId, String boardName, ProjectNamesResponseDTO project) {
         this.boardId = boardId;
         this.boardName = boardName;
-        this.projectId = projectId;
         this.project = project;
     }
 
@@ -35,19 +34,11 @@ public class BoardNamesResponseDTO {
         this.boardName = boardName;
     }
 
-    public String getProject() {
+    public ProjectNamesResponseDTO getProject() {
         return project;
     }
 
-    public void setProject(String project) {
+    public void setProject(ProjectNamesResponseDTO project) {
         this.project = project;
-    }
-
-    public int getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
     }
 }

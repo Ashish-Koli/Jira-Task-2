@@ -1,4 +1,4 @@
-package com.example.jira.dto;
+package com.example.jira.dto.BoardDTOs;
 
 
 public class BoardDTO {

@@ -1,6 +1,7 @@
 package com.example.jira.controllers;
 
-import com.example.jira.dto.CommentDTO;
+import com.example.jira.dto.CommentDTOs.CommentDTO;
+import com.example.jira.dto.CommentDTOs.CommentResponseDTO;
 import com.example.jira.models.Comment;
 import com.example.jira.services.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class CommentsController {
 //        return new ResponseEntity<>(commentsService.getAllComments(), HttpStatus.OK);
 //    }
     @GetMapping("/allComment/{id}")
-    public ResponseEntity<List<Comment>> getAllComments(@PathVariable int id) {
+    public ResponseEntity<List<CommentResponseDTO>> getAllComments(@PathVariable int id) {
         return new ResponseEntity<>(commentsService.getAllComments(id), HttpStatus.OK);
     }
 

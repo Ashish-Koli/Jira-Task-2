@@ -1,10 +1,9 @@
 package com.example.jira.controllers;
 
-import com.example.jira.dto.ProjectDTO;
+import com.example.jira.dto.ProjectDTOs.ProjectDTO;
 import com.example.jira.dto.ProjectDTOs.ProjectResponseDTO;
-import com.example.jira.dto.responseDTO.ProjectNamesResponseDTO;
+import com.example.jira.dto.ProjectDTOs.ProjectNamesResponseDTO;
 import com.example.jira.models.Project;
-import com.example.jira.repositories.ProjectRepository;
 import com.example.jira.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
