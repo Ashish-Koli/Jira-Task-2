@@ -1,21 +1,40 @@
-package com.example.jira.dto;
+package com.example.jira.dto.SprintDTOs;
+
+import com.example.jira.dto.BoardDTOs.BoardNameResponseDTO;
+import com.example.jira.models.Release;
+
 import java.util.Date;
 
-public class SprintDTO {
+public class SprintResponseDTO {
+    private int sprintId;
     private String sprintNo;
     private String sprintName;
     private int sprintPoint;
     private Date startDate;
     private Date endDate;
-    private int board;
+    private BoardNameResponseDTO board;
+    private Release release;
 
-    public SprintDTO(String sprintNo, String sprintName, int sprintPoint, Date startDate, Date endDate, int board) {
+    public SprintResponseDTO() {
+    }
+
+    public SprintResponseDTO(int sprintId, String sprintNo, String sprintName, int sprintPoint, Date startDate, Date endDate, BoardNameResponseDTO board, Release release) {
+        this.sprintId = sprintId;
         this.sprintNo = sprintNo;
         this.sprintName = sprintName;
         this.sprintPoint = sprintPoint;
         this.startDate = startDate;
         this.endDate = endDate;
         this.board = board;
+        this.release = release;
+    }
+
+    public int getSprintId() {
+        return sprintId;
+    }
+
+    public void setSprintId(int sprintId) {
+        this.sprintId = sprintId;
     }
 
     public String getSprintNo() {
@@ -58,11 +77,19 @@ public class SprintDTO {
         this.endDate = endDate;
     }
 
-    public int getBoard() {
+    public BoardNameResponseDTO getBoard() {
         return board;
     }
 
-    public void setBoard(int board) {
+    public void setBoard(BoardNameResponseDTO board) {
         this.board = board;
+    }
+
+    public Release getRelease() {
+        return release;
+    }
+
+    public void setRelease(Release release) {
+        this.release = release;
     }
 }

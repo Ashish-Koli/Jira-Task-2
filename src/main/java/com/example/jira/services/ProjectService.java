@@ -1,8 +1,9 @@
 package com.example.jira.services;
 
-import com.example.jira.dto.ProjectDTO;
+import com.example.jira.dto.ProjectDTOs.ProjectDTO;
 import com.example.jira.dto.ProjectDTOs.*;
-import com.example.jira.dto.responseDTO.ProjectNamesResponseDTO;
+import com.example.jira.dto.ProjectDTOs.ProjectNamesResponseDTO;
+import com.example.jira.dto.UserDTOs.UserResponseDTO;
 import com.example.jira.models.*;
 import com.example.jira.repositories.ProjectRepository;
 import com.example.jira.repositories.UserRepository;

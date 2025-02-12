@@ -1,4 +1,4 @@
-package com.example.jira.dto;
+package com.example.jira.dto.UserDTOs;
 
 public class UserDTO {
 

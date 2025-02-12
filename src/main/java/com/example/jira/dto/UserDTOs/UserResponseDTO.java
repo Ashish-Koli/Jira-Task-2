@@ -1,14 +1,16 @@
-package com.example.jira.dto.responseDTO;
+package com.example.jira.dto.UserDTOs;
+
+import com.example.jira.dto.responseDTO.RoleResponseDTO;
 
 public class UserResponseDTO {
     private int userId;
     private String userName;
     private String email;
-    private String role;
+    private RoleResponseDTO role;
 
     public UserResponseDTO(){}
 
-    public UserResponseDTO(int userId, String userName, String email, String role) {
+    public UserResponseDTO(int userId, String userName, String email, RoleResponseDTO role) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
@@ -39,11 +41,11 @@ public class UserResponseDTO {
         this.email = email;
     }
 
-    public String getRole() {
+    public RoleResponseDTO getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(RoleResponseDTO role) {
         this.role = role;
     }
 }

@@ -1,7 +1,11 @@
 package com.example.jira.services;
 
-import com.example.jira.dto.SprintDTO;
-import com.example.jira.dto.responseDTO.SprintResponseDTO;
+import com.example.jira.dto.BoardDTOs.BoardNameResponseDTO;
+import com.example.jira.dto.EpicDTOs.EpicNameResponseDTO;
+import com.example.jira.dto.SprintDTOs.SprintDTO;
+import com.example.jira.dto.SprintDTOs.SprintResponseDTO;
+import com.example.jira.dto.StoryDTOs.StoryResponseDTO;
+import com.example.jira.dto.UserDTOs.UserNameResponseDTO;
 import com.example.jira.models.Board;
 import com.example.jira.models.Release;
 import com.example.jira.models.Sprint;
@@ -52,11 +56,12 @@ public class SprintService {
             responseDTO.setSprintPoint(sprint.getSprintPoint());
             responseDTO.setStartDate(sprint.getStartDate());
             responseDTO.setEndDate(sprint.getEndDate());
-            responseDTO.setBoardId(sprint.getBoard().getBoardId());
-            responseDTO.setBoard(sprint.getBoard().getBoardName());
+            BoardNameResponseDTO boardNameResponseDTO = new BoardNameResponseDTO();
+            boardNameResponseDTO.setBoardId(sprint.getBoard().getBoardId());
+            boardNameResponseDTO.setBoardName(sprint.getBoard().getBoardName());
+            responseDTO.setBoard(boardNameResponseDTO);
             Release release = releaseService.getReleaseBySprintId(sprint.getSprintId());
-            responseDTO.setReleaseId(release.getReleaseId());
-            responseDTO.setReleaseName(release.getReleaseName());
+            responseDTO.setRelease(release);
             return responseDTO;
         }).toList();
     }
@@ -84,26 +89,41 @@ public class SprintService {
         return sprintRepository.findAll();
     }
 
-    public Map<String, List<Story>> getCategorizedStoriesBySprintId(int sprintId){
+    public Map<String, List<StoryResponseDTO>> getCategorizedStoriesBySprintId(int sprintId){
         Sprint sprint = sprintRepository.findById(sprintId).orElseThrow();
 
-        List<Story> todoList = new ArrayList<>();
-        List<Story> doneList = new ArrayList<>();
-        List<Story> inProgressList = new ArrayList<>();
-        List<Story> blockedList = new ArrayList<>();
+        List<StoryResponseDTO> todoList = new ArrayList<>();
+        List<StoryResponseDTO> doneList = new ArrayList<>();
+        List<StoryResponseDTO> inProgressList = new ArrayList<>();
+        List<StoryResponseDTO> blockedList = new ArrayList<>();
 
         for (Story story : sprint.getStoryList()) {
-            if (story.getStoryStatus().getName().equalsIgnoreCase("ToDo")) {
-                todoList.add(story);
-            } else if (story.getStoryStatus().getName().equalsIgnoreCase("Done")) {
-                doneList.add(story);
-            } else if (story.getStoryStatus().getName().equalsIgnoreCase("InProgress")) {
-                inProgressList.add(story);
-            } else if (story.getStoryStatus().getName().equalsIgnoreCase("Blocked")) {
-                blockedList.add(story);
+            StoryResponseDTO storyResponseDTO = new StoryResponseDTO();
+            storyResponseDTO.setStoryId(story.getStoryId());
+            storyResponseDTO.setStoryName(story.getStoryName());
+            storyResponseDTO.setDescription(story.getDescription());
+            storyResponseDTO.setStoryStatus(story.getStoryStatus());
+            UserNameResponseDTO userNameResponseDTO = new UserNameResponseDTO();
+            userNameResponseDTO.setUserId(story.getUser().getUserId());
+            userNameResponseDTO.setUserName(story.getUser().getUserName());
+            storyResponseDTO.setUser(userNameResponseDTO);
+            EpicNameResponseDTO epicNameResponseDTO = new EpicNameResponseDTO();
+            epicNameResponseDTO.setEpicId(story.getEpic().getEpicId());
+            epicNameResponseDTO.setEpicName(story.getEpic().getEpicName());
+            storyResponseDTO.setEpic(epicNameResponseDTO);
+
+
+            if (storyResponseDTO.getStoryStatus().getName().equalsIgnoreCase("ToDo")) {
+                todoList.add(storyResponseDTO);
+            } else if (storyResponseDTO.getStoryStatus().getName().equalsIgnoreCase("Done")) {
+                doneList.add(storyResponseDTO);
+            } else if (storyResponseDTO.getStoryStatus().getName().equalsIgnoreCase("InProgress")) {
+                inProgressList.add(storyResponseDTO);
+            } else if (storyResponseDTO.getStoryStatus().getName().equalsIgnoreCase("Blocked")) {
+                blockedList.add(storyResponseDTO);
             }
         }
-        Map<String, List<Story>> categorizedStories = new HashMap<>();
+        Map<String, List<StoryResponseDTO>> categorizedStories = new HashMap<>();
         categorizedStories.put("ToDo", todoList);
         categorizedStories.put("Done", doneList);
         categorizedStories.put("InProgress", inProgressList);

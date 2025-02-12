@@ -1,7 +1,7 @@
 package com.example.jira.controllers;
 
 import com.example.jira.dto.EpicDTO;
-import com.example.jira.dto.responseDTO.EpicResponseDTO;
+import com.example.jira.dto.EpicDTOs.EpicResponseDTO;
 import com.example.jira.models.Epic;
 import com.example.jira.services.EpicService;
 import org.springframework.beans.factory.annotation.Autowired;

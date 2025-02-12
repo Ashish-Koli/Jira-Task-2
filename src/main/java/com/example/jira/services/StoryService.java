@@ -1,7 +1,13 @@
 package com.example.jira.services;
 
-import com.example.jira.dto.StoryDTO;
+import com.example.jira.dto.BoardDTOs.BoardNameResponseDTO;
+import com.example.jira.dto.EpicDTOs.EpicNameResponseDTO;
+import com.example.jira.dto.SprintDTOs.SprintNameResponseDTO;
+import com.example.jira.dto.SprintDTOs.SprintResponseDTO;
+import com.example.jira.dto.StoryDTOs.StoryDTO;
+import com.example.jira.dto.StoryDTOs.StoryResponseDTO;
 import com.example.jira.dto.UpdateStoryStatusDTO;
+import com.example.jira.dto.UserDTOs.UserNameResponseDTO;
 import com.example.jira.models.*;
 import com.example.jira.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,12 +61,49 @@ public class StoryService {
         return storyRepository.save(story);
     }
 
-    public List<Story> getALlStory(){
-        return storyRepository.findAll();
+    public List<StoryResponseDTO> getALlStory(){
+        return storyRepository.findAll().stream().map(story -> {
+            StoryResponseDTO storyResponseDTO = new StoryResponseDTO();
+            storyResponseDTO.setStoryId(story.getStoryId());
+            storyResponseDTO.setStoryName(story.getStoryName());
+            storyResponseDTO.setDescription(story.getDescription());
+            storyResponseDTO.setStoryStatus(story.getStoryStatus());
+            BoardNameResponseDTO boardNameResponseDTO = new BoardNameResponseDTO();
+            boardNameResponseDTO.setBoardId(story.getBoard().getBoardId());
+            boardNameResponseDTO.setBoardName(story.getBoard().getBoardName());
+            storyResponseDTO.setBoard(boardNameResponseDTO);
+            SprintNameResponseDTO sprintNameResponseDTO = new SprintNameResponseDTO();
+            sprintNameResponseDTO.setSprintId(story.getSprint().getSprintId());
+            sprintNameResponseDTO.setSprintName(story.getSprint().getSprintName());
+            storyResponseDTO.setSprint(sprintNameResponseDTO);
+            EpicNameResponseDTO epicNameResponseDTO = new EpicNameResponseDTO();
+            epicNameResponseDTO.setEpicId(story.getEpic().getEpicId());
+            epicNameResponseDTO.setEpicName(story.getEpic().getEpicName());
+            storyResponseDTO.setEpic(epicNameResponseDTO);
+            UserNameResponseDTO userNameResponseDTO = new UserNameResponseDTO();
+            userNameResponseDTO.setUserId(story.getUser().getUserId());
+            userNameResponseDTO.setUserName(story.getUser().getUserName());
+            storyResponseDTO.setUser(userNameResponseDTO);
+            return  storyResponseDTO;
+        }).toList();
     }
 
-    public Story getStory(int id){
-        return storyRepository.findById(id).orElseThrow();
+    public StoryResponseDTO getStory(int id){
+        Story story = storyRepository.findById(id).orElseThrow();
+        StoryResponseDTO storyResponseDTO = new StoryResponseDTO();
+        storyResponseDTO.setStoryId(story.getStoryId());
+        storyResponseDTO.setStoryName(story.getStoryName());
+        storyResponseDTO.setDescription(story.getDescription());
+        storyResponseDTO.setStoryStatus(story.getStoryStatus());
+        UserNameResponseDTO userNameResponseDTO = new UserNameResponseDTO();
+        userNameResponseDTO.setUserId(story.getUser().getUserId());
+        userNameResponseDTO.setUserName(story.getUser().getUserName());
+        storyResponseDTO.setUser(userNameResponseDTO);
+        EpicNameResponseDTO epicNameResponseDTO = new EpicNameResponseDTO();
+        epicNameResponseDTO.setEpicId(story.getEpic().getEpicId());
+        epicNameResponseDTO.setEpicName(story.getEpic().getEpicName());
+        storyResponseDTO.setEpic(epicNameResponseDTO);
+        return storyResponseDTO;
     }
 
     public Story updateStory(StoryDTO storyDTO, int id){

@@ -1,13 +1,13 @@
 package com.example.jira.services;
 
-import com.example.jira.dto.BoardDTO;
-import com.example.jira.dto.responseDTO.BoardNamesResponseDTO;
+import com.example.jira.dto.BoardDTOs.BoardDTO;
+import com.example.jira.dto.BoardDTOs.BoardResponseDTO;
+import com.example.jira.dto.ProjectDTOs.ProjectNamesResponseDTO;
 import com.example.jira.models.Board;
 import com.example.jira.models.Project;
 import com.example.jira.repositories.BoardRepository;
 import com.example.jira.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,21 +21,39 @@ public class BoardService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    public Board createBoard(BoardDTO boardDTO) {
+    public BoardResponseDTO createBoard(BoardDTO boardDTO) {
         Board board = new Board();
         board.setBoardName(boardDTO.getBoardName());
         Project project = projectRepository.findById(boardDTO.getProject()).orElseThrow();
         board.setProject(project);
-        return boardRepository.save(board);
+        Board board1 = boardRepository.save(board);
+        BoardResponseDTO responseDTO = new BoardResponseDTO();
+        responseDTO.setBoardId(board1.getBoardId());
+        responseDTO.setBoardName(board1.getBoardName());
+        ProjectNamesResponseDTO projectNamesResponseDTO = new ProjectNamesResponseDTO();
+        projectNamesResponseDTO.setProjectId(board1.getProject().getProjectId());
+        projectNamesResponseDTO.setProjectName(board1.getProject().getProjectName());
+        responseDTO.setProject(projectNamesResponseDTO);
+        return responseDTO;
     }
 
-    public List<Board> getAllBoards() {
-        return boardRepository.findAll();
+    public List<BoardResponseDTO> getAllBoards() {
+        return boardRepository.findAll().stream().map(board -> {
+                    BoardResponseDTO responseDTO = new BoardResponseDTO();
+                    responseDTO.setBoardId(board.getBoardId());
+                    responseDTO.setBoardName(board.getBoardName());
+                    ProjectNamesResponseDTO projectNamesResponseDTO = new ProjectNamesResponseDTO();
+                    projectNamesResponseDTO.setProjectId(board.getProject().getProjectId());
+                    projectNamesResponseDTO.setProjectName(board.getProject().getProjectName());
+                    responseDTO.setProject(projectNamesResponseDTO);
+                    return responseDTO;
+                }
+        ).toList();
     }
 
-//    public List<BoardNamesResponseDTO> getBoardsByProjectId(int projectId) {
+//    public List<BoardResponseDTO> getBoardsByProjectId(int projectId) {
 //        return boardRepository.findBoardsByProjectId(projectId).stream().map(board -> {
-//            BoardNamesResponseDTO responseDTO = new BoardNamesResponseDTO();
+//            BoardResponseDTO responseDTO = new BoardResponseDTO();
 //            responseDTO.setBoardId(board.getBoardId());
 //            responseDTO.setBoardName(board.getBoardName());
 //            return responseDTO;
@@ -43,37 +61,47 @@ public class BoardService {
 //        ).toList();
 //    }
 
-    public  List<Board> getBoardsByProjectId(int projectId){
-        return boardRepository.findBoardsByProjectId(projectId);
-    }
+//    public  List<Board> getBoardsByProjectId(int projectId){
+//        return boardRepository.findBoardsByProjectId(projectId);
+//    }
 
-    public List<BoardNamesResponseDTO> getBoardsByUserId(int userId) {
+    public List<BoardResponseDTO> getBoardsByUserId(int userId) {
         return boardRepository.findBoardsByUserId(userId).stream().map(board -> {
-            BoardNamesResponseDTO responseDTO = new BoardNamesResponseDTO();
+            BoardResponseDTO responseDTO = new BoardResponseDTO();
             responseDTO.setBoardId(board.getBoardId());
             responseDTO.setBoardName(board.getBoardName());
-            responseDTO.setProjectId(board.getProject().getProjectId());
-            responseDTO.setProject(board.getProject().getProjectName());
+            ProjectNamesResponseDTO projectNamesResponseDTO = new ProjectNamesResponseDTO();
+            projectNamesResponseDTO.setProjectId(board.getProject().getProjectId());
+            projectNamesResponseDTO.setProjectName(board.getProject().getProjectName());
+            responseDTO.setProject(projectNamesResponseDTO);
             return responseDTO;
         }
         ).toList();
     }
-    public List<Board> getAllBoardsByUserId(int userId) {
-        return boardRepository.findBoardsByUserId(userId);
-    }
+//    public List<Board> getAllBoardsByUserId(int userId) {
+//        return boardRepository.findBoardsByUserId(userId);
+//    }
 
     public Board getBoard(int id){
         return boardRepository.findById(id).orElseThrow();
     }
 
-    public Board updateBoard(BoardDTO boardDTO, int id) {
+    public BoardResponseDTO updateBoard(BoardDTO boardDTO, int id) {
         Board updateBoard = boardRepository.findById(id).orElseThrow();
         System.out.println(updateBoard.getBoardName());
         System.out.println(boardDTO.getBoardName());
         updateBoard.setBoardName(boardDTO.getBoardName());
         Project project = projectRepository.findById(boardDTO.getProject()).orElseThrow();
         updateBoard.setProject(project);
-        return boardRepository.save(updateBoard);
+        Board board1 = boardRepository.save(updateBoard);
+        BoardResponseDTO responseDTO = new BoardResponseDTO();
+        responseDTO.setBoardId(board1.getBoardId());
+        responseDTO.setBoardName(board1.getBoardName());
+        ProjectNamesResponseDTO projectNamesResponseDTO = new ProjectNamesResponseDTO();
+        projectNamesResponseDTO.setProjectId(board1.getProject().getProjectId());
+        projectNamesResponseDTO.setProjectName(board1.getProject().getProjectName());
+        responseDTO.setProject(projectNamesResponseDTO);
+        return responseDTO;
     }
 
     public void deleteBoard(int id) {

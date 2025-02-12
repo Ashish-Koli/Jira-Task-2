@@ -1,6 +1,7 @@
 package com.example.jira.controllers;
 
-import com.example.jira.dto.StoryDTO;
+import com.example.jira.dto.StoryDTOs.StoryDTO;
+import com.example.jira.dto.StoryDTOs.StoryResponseDTO;
 import com.example.jira.dto.UpdateStoryStatusDTO;
 import com.example.jira.models.Story;
 import com.example.jira.services.StoryService;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/story")
@@ -25,12 +25,12 @@ public class StoryController {
     }
 
     @GetMapping("/allStory")
-    public ResponseEntity<List<Story>> getAllStory(){
+    public ResponseEntity<List<StoryResponseDTO>> getAllStory(){
         return new ResponseEntity<>(storyService.getALlStory(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Story> getStory(@PathVariable int id){
+    public ResponseEntity<StoryResponseDTO> getStory(@PathVariable int id){
         return new ResponseEntity<>(storyService.getStory(id), HttpStatus.OK);
     }
 
