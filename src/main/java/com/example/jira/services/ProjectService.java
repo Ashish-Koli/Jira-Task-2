@@ -45,10 +45,8 @@ public class ProjectService {
         userList.add(user1);
         List<Integer> userDTOList = projectDTO.getUserList();
         for (int i=0; i<projectDTO.getUserList().size(); i++){
-            User user = userService.getUser(userDTOList.get(i));
-            if (user != null){
-                userList.add(user);
-            }
+            User user = userRepository.findById(userDTOList.get(i)).orElseThrow();
+            userList.add(user);
         }
         System.out.println(userList);
         project.setUserList(userList);
@@ -204,10 +202,8 @@ public class ProjectService {
         User user1 = userRepository.findByUserName(username).orElseThrow();
         userList.add(user1);
         for (int i=0; i<projectDTO.getUserList().size(); i++){
-            User user = userService.getUser(userDTOList.get(i));
-            if (user != null){
-                userList.add(user);
-            }
+            User user = userRepository.findById(userDTOList.get(i)).orElseThrow();
+            userList.add(user);
         }
         updateProject.setUserList(userList);
         projectRepository.save(updateProject);

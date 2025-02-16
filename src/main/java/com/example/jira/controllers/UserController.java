@@ -2,6 +2,8 @@ package com.example.jira.controllers;
 
 
 import com.example.jira.dto.LoginDTO;
+import com.example.jira.dto.UserDTOs.PasswordChangeDTO;
+import com.example.jira.dto.UserDTOs.ProfileDTO;
 import com.example.jira.dto.responseDTO.TokenResponse;
 import com.example.jira.dto.UserDTOs.UserDTO;
 import com.example.jira.dto.UserDTOs.UserResponseDTO;
@@ -32,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable int id){
+    public ResponseEntity<UserResponseDTO> getUser(@PathVariable int id){
         return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
@@ -41,9 +43,25 @@ public class UserController {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
+    @GetMapping("/sprint/{sprintId}")
+    public ResponseEntity<List<UserResponseDTO>> getAllUsersBySprintId(@PathVariable int sprintId){
+        return new ResponseEntity<>(userService.getAllUsersBySprintId(sprintId), HttpStatus.OK);
+    }
+
+    @PutMapping("/updateProfile/{id}")
+    public ResponseEntity<UserResponseDTO> updateProfile(@RequestBody ProfileDTO profileDTO, @PathVariable int id){
+        return new ResponseEntity<>(userService.updateProfile(profileDTO, id), HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<UserResponseDTO> updateUser(@RequestBody UserDTO user, @PathVariable int id){
         return new ResponseEntity<>(userService.updateUser(user, id), HttpStatus.OK);
+    }
+
+    @PutMapping("/changePassword/{id}")
+    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeDTO passwordChangeDTO, @PathVariable int id) throws Exception {
+        userService.changePassword(passwordChangeDTO, id);
+        return ResponseEntity.ok("Password updated successfully");
     }
 
     @DeleteMapping("/delete/{id}")
