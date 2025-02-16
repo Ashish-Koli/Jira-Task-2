@@ -36,10 +36,12 @@ public class SprintController {
         return new ResponseEntity<>(sprintService.getSprint(id), HttpStatus.OK);
     }
 
-//    @GetMapping("/board/{id}")
-//    public ResponseEntity<List<Sprint>> getSprintByBoardId(@PathVariable int id){
-//        return new ResponseEntity<>(sprintService.getSprintByBoardId(id),HttpStatus.OK);
-//    }
+    @GetMapping("/details/{id}")
+    public ResponseEntity<SprintResponseDTO> getSprintDetails(@PathVariable int id){
+        return new ResponseEntity<>(sprintService.getSprintDetails(id), HttpStatus.OK);
+    }
+
+
     @GetMapping("/user/{id}")
     public ResponseEntity<List<SprintResponseDTO>> getSprintByUserId(@PathVariable int id){
         return new ResponseEntity<>(sprintService.getSprintByUserId(id),HttpStatus.OK);

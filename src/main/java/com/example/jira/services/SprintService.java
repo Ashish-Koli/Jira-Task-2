@@ -70,19 +70,23 @@ public class SprintService {
         return sprintRepository.findById(id).orElseThrow();
     }
 
-//    public List<SprintResponseDTO> getALlSprint(){
-//        return sprintRepository.findAll().stream().map(sprint -> {
-//            SprintResponseDTO responseDTO =  new SprintResponseDTO();
-//            responseDTO.setSprintId(sprint.getSprintId());
-//            responseDTO.setSprintNo(sprint.getSprintNo());
-//            responseDTO.setSprintName(sprint.getSprintName());
-//            responseDTO.setSprintPoint(sprint.getSprintPoint());
-//            responseDTO.setStartDate(sprint.getStartDate());
-//            responseDTO.setEndDate(sprint.getEndDate());
-//            responseDTO.setBoard(sprint.getBoard().getBoardName());
-//            return responseDTO;
-//        }).toList();
-//    }
+    public SprintResponseDTO getSprintDetails(int id){
+        Sprint sprint = sprintRepository.findById(id).orElseThrow();
+        SprintResponseDTO responseDTO =  new SprintResponseDTO();
+        responseDTO.setSprintId(sprint.getSprintId());
+        responseDTO.setSprintNo(sprint.getSprintNo());
+        responseDTO.setSprintName(sprint.getSprintName());
+        responseDTO.setSprintPoint(sprint.getSprintPoint());
+        responseDTO.setStartDate(sprint.getStartDate());
+        responseDTO.setEndDate(sprint.getEndDate());
+        BoardNameResponseDTO boardNameResponseDTO = new BoardNameResponseDTO();
+        boardNameResponseDTO.setBoardId(sprint.getBoard().getBoardId());
+        boardNameResponseDTO.setBoardName(sprint.getBoard().getBoardName());
+        responseDTO.setBoard(boardNameResponseDTO);
+        Release release = releaseService.getReleaseBySprintId(sprint.getSprintId());
+        responseDTO.setRelease(release);
+        return responseDTO;
+    }
 
 
     public List<Sprint> getALlSprint() {

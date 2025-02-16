@@ -1,6 +1,8 @@
 package com.example.jira.services;
 
 import com.example.jira.dto.LoginDTO;
+import com.example.jira.dto.UserDTOs.PasswordChangeDTO;
+import com.example.jira.dto.UserDTOs.ProfileDTO;
 import com.example.jira.dto.UserDTOs.UserDTO;
 import com.example.jira.dto.UserDTOs.UserResponseDTO;
 import com.example.jira.dto.responseDTO.RoleResponseDTO;
@@ -34,6 +36,7 @@ public class UserService {
     AuthenticationManager authenticationManager;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+
 
 
     public UserResponseDTO createUser(UserDTO user){
@@ -73,8 +76,31 @@ public class UserService {
         }).toList();
     }
 
-    public User getUser(int id){
-        return userRepository.findById(id).orElseThrow();
+    public List<UserResponseDTO> getAllUsersBySprintId(int sprintId){
+        return userRepository.findDistinctUsersBySprintId(sprintId).stream().map(user -> {
+            UserResponseDTO userResponseDTO = new UserResponseDTO();
+            userResponseDTO.setUserId(user.getUserId());
+            userResponseDTO.setUserName(user.getUserName());
+            userResponseDTO.setEmail(user.getEmail());
+            RoleResponseDTO roleResponseDTO = new RoleResponseDTO();
+            roleResponseDTO.setId(user.getRole().getId());
+            roleResponseDTO.setTitle(user.getRole().getTitle());
+            userResponseDTO.setRole(roleResponseDTO);
+            return userResponseDTO;
+        }).toList();
+    }
+
+    public UserResponseDTO getUser(int id){
+        User user1 = userRepository.findById(id).orElseThrow();
+        UserResponseDTO userResponseDTO = new UserResponseDTO();
+        userResponseDTO.setUserId(user1.getUserId());
+        userResponseDTO.setUserName(user1.getUserName());
+        userResponseDTO.setEmail(user1.getEmail());
+        RoleResponseDTO roleResponseDTO = new RoleResponseDTO();
+        roleResponseDTO.setId(user1.getRole().getId());
+        roleResponseDTO.setTitle(user1.getRole().getTitle());
+        userResponseDTO.setRole(roleResponseDTO);
+        return userResponseDTO;
 
     }
 
@@ -98,6 +124,33 @@ public class UserService {
         userResponseDTO.setRole(roleResponseDTO);
 
         return userResponseDTO;
+    }
+
+    public  UserResponseDTO updateProfile(ProfileDTO profileDTO, int id){
+        User updateUser = userRepository.findById(id).orElseThrow();
+        updateUser.setUserName(profileDTO.getUserName());
+        updateUser.setEmail(profileDTO.getEmail());
+        User user1 = userRepository.save(updateUser);
+
+        UserResponseDTO userResponseDTO = new UserResponseDTO();
+        userResponseDTO.setUserId(user1.getUserId());
+        userResponseDTO.setUserName(user1.getUserName());
+        userResponseDTO.setEmail(user1.getEmail());
+        RoleResponseDTO roleResponseDTO = new RoleResponseDTO();
+        roleResponseDTO.setId(user1.getRole().getId());
+        roleResponseDTO.setTitle(user1.getRole().getTitle());
+        userResponseDTO.setRole(roleResponseDTO);
+
+        return userResponseDTO;
+    }
+
+    public void changePassword(PasswordChangeDTO passwordChangeDTO, int id) throws Exception {
+        User user = userRepository.findById(id).orElseThrow();
+        if (user.getPassword() != passwordEncoder.encode(passwordChangeDTO.getCurrentPassword())){
+            throw new Exception("Current Password Does not match");
+        }
+        user.setPassword(passwordEncoder.encode(passwordChangeDTO.getNewPassword()));
+        userRepository.save(user);
     }
 
     public void deleteUser(int id){
