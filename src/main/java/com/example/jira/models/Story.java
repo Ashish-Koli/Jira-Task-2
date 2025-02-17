@@ -40,10 +40,14 @@ public class Story {
     @JoinColumn(name = "EpicId")
     private Epic epic;
 
+    @ManyToOne
+    @JoinColumn(name = "AssignedTo")
+    private User assignedTo;
+
     public Story() {
     }
 
-    public Story(int storyId, String storyName, String description, StoryStatus storyStatus, Board board, User user, Sprint sprint, Epic epic) {
+    public Story(int storyId, String storyName, String description, StoryStatus storyStatus, Board board, User user, Sprint sprint, Epic epic, User assignedTo) {
         this.storyId = storyId;
         this.storyName = storyName;
         this.description = description;
@@ -52,6 +56,7 @@ public class Story {
         this.user = user;
         this.sprint = sprint;
         this.epic = epic;
+        this.assignedTo = assignedTo;
     }
 
     public int getStoryId() {
@@ -116,5 +121,13 @@ public class Story {
 
     public void setEpic(Epic epic) {
         this.epic = epic;
+    }
+
+    public User getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(User assignedTo) {
+        this.assignedTo = assignedTo;
     }
 }

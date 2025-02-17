@@ -6,6 +6,7 @@ import com.example.jira.dto.UserDTOs.ProfileDTO;
 import com.example.jira.dto.UserDTOs.UserDTO;
 import com.example.jira.dto.UserDTOs.UserResponseDTO;
 import com.example.jira.dto.responseDTO.RoleResponseDTO;
+import com.example.jira.exception.UserNotFoundException;
 import com.example.jira.models.Role;
 import com.example.jira.models.User;
 import com.example.jira.repositories.RoleRepository;
@@ -143,11 +144,13 @@ public class UserService {
 
         return userResponseDTO;
     }
-
     public void changePassword(PasswordChangeDTO passwordChangeDTO, int id) throws Exception {
         User user = userRepository.findById(id).orElseThrow();
-        if (user.getPassword() != passwordEncoder.encode(passwordChangeDTO.getCurrentPassword())){
-            throw new Exception("Current Password Does not match");
+        try{
+            Authentication authentication =
+                    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(),passwordChangeDTO.getCurrentPassword()));
+        }catch (Exception e){
+            throw new Exception("Incorrect Current Password!!");
         }
         user.setPassword(passwordEncoder.encode(passwordChangeDTO.getNewPassword()));
         userRepository.save(user);

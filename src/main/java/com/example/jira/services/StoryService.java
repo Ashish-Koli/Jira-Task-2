@@ -40,6 +40,7 @@ public class StoryService {
         Board board = boardService.getBoard(storyDTO.getBoard());
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUserName(username).orElseThrow();
+        User assignedTo = userRepository.findById(storyDTO.getAssignedTo()).orElseThrow();
         Sprint sprint = sprintService.getSprint(storyDTO.getSprint());
         Epic epic = epicService.getEpic(storyDTO.getEpic());
         Story story = new Story();
@@ -50,6 +51,7 @@ public class StoryService {
         story.setUser(user);
         story.setSprint(sprint);
         story.setEpic(epic);
+        story.setAssignedTo(assignedTo);
         return storyRepository.save(story);
     }
 
@@ -57,7 +59,6 @@ public class StoryService {
         Story story = storyRepository.findById(id).orElseThrow();
         StoryStatus storyStatus = storyStatusService.getStoryStatus(statusDTO.getStoryStatusId());
         story.setStoryStatus(storyStatus);
-        System.out.println(story.getStoryStatus().getName());
         return storyRepository.save(story);
     }
 
@@ -99,10 +100,22 @@ public class StoryService {
         userNameResponseDTO.setUserId(story.getUser().getUserId());
         userNameResponseDTO.setUserName(story.getUser().getUserName());
         storyResponseDTO.setUser(userNameResponseDTO);
+        BoardNameResponseDTO boardNameResponseDTO = new BoardNameResponseDTO();
+        boardNameResponseDTO.setBoardId(story.getBoard().getBoardId());
+        boardNameResponseDTO.setBoardName(story.getBoard().getBoardName());
+        storyResponseDTO.setBoard(boardNameResponseDTO);
+        SprintNameResponseDTO sprintNameResponseDTO = new SprintNameResponseDTO();
+        sprintNameResponseDTO.setSprintId(story.getSprint().getSprintId());
+        sprintNameResponseDTO.setSprintName(story.getSprint().getSprintName());
+        storyResponseDTO.setSprint(sprintNameResponseDTO);
         EpicNameResponseDTO epicNameResponseDTO = new EpicNameResponseDTO();
         epicNameResponseDTO.setEpicId(story.getEpic().getEpicId());
         epicNameResponseDTO.setEpicName(story.getEpic().getEpicName());
         storyResponseDTO.setEpic(epicNameResponseDTO);
+        UserNameResponseDTO assignedTo = new UserNameResponseDTO();
+        assignedTo.setUserId(story.getAssignedTo().getUserId());
+        assignedTo.setUserName(story.getAssignedTo().getUserName());
+        storyResponseDTO.setAssignedTo(assignedTo);
         return storyResponseDTO;
     }
 
@@ -114,6 +127,7 @@ public class StoryService {
         User user = userRepository.findByUserName(username).orElseThrow();
         Sprint sprint = sprintService.getSprint(storyDTO.getSprint());
         Epic epic = epicService.getEpic(storyDTO.getEpic());
+        User assignedTo = userRepository.findById(storyDTO.getAssignedTo()).orElseThrow();
         updateStory.setStoryName(storyDTO.getStoryName());
         updateStory.setDescription(storyDTO.getDescription());
         updateStory.setStoryStatus(storyStatus);
@@ -121,6 +135,7 @@ public class StoryService {
         updateStory.setUser(user);
         updateStory.setSprint(sprint);
         updateStory.setEpic(epic);
+        updateStory.setAssignedTo(assignedTo);
         return storyRepository.save(updateStory);
     }
 

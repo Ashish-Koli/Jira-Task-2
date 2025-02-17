@@ -15,11 +15,12 @@ public class StoryResponseDTO {
     private SprintNameResponseDTO sprint;
     private EpicNameResponseDTO epic;
     private UserNameResponseDTO user;
+    private UserNameResponseDTO assignedTo;
 
     public StoryResponseDTO() {
     }
 
-    public StoryResponseDTO(int storyId, String storyName, String description, StoryStatus storyStatus, BoardNameResponseDTO board, SprintNameResponseDTO sprint, EpicNameResponseDTO epic) {
+    public StoryResponseDTO(int storyId, String storyName, String description, StoryStatus storyStatus, BoardNameResponseDTO board, SprintNameResponseDTO sprint, EpicNameResponseDTO epic, UserNameResponseDTO assignedTo) {
         this.storyId = storyId;
         this.storyName = storyName;
         this.description = description;
@@ -27,6 +28,7 @@ public class StoryResponseDTO {
         this.board = board;
         this.sprint = sprint;
         this.epic = epic;
+        this.assignedTo = assignedTo;
     }
 
     public int getStoryId() {
@@ -91,5 +93,13 @@ public class StoryResponseDTO {
 
     public void setUser(UserNameResponseDTO user) {
         this.user = user;
+    }
+
+    public UserNameResponseDTO getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(UserNameResponseDTO assignedTo) {
+        this.assignedTo = assignedTo;
     }
 }
