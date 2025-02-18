@@ -20,7 +20,7 @@ public class StoryController {
     private StoryService storyService;
 
     @PostMapping("/create")
-    public ResponseEntity<Story> createStory(@RequestBody StoryDTO storyDTO){
+    public ResponseEntity<StoryResponseDTO> createStory(@RequestBody StoryDTO storyDTO){
         return new ResponseEntity<>(storyService.createStory(storyDTO), HttpStatus.CREATED);
     }
 
@@ -35,7 +35,7 @@ public class StoryController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Story> updateStory(@RequestBody StoryDTO storyDTO,@PathVariable int id){
+    public ResponseEntity<StoryResponseDTO> updateStory(@RequestBody StoryDTO storyDTO,@PathVariable int id){
         return new ResponseEntity<>(storyService.updateStory(storyDTO, id), HttpStatus.OK);
     }
 

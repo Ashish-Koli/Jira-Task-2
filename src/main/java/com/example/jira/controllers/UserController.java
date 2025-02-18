@@ -28,14 +28,14 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserDTO user){
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> getUser(@PathVariable int id){
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserResponseDTO> getUser(@PathVariable int userId){
+        return new ResponseEntity<>(userService.getUser(userId), HttpStatus.OK);
     }
 
     @GetMapping("/allUser")
@@ -48,23 +48,23 @@ public class UserController {
         return new ResponseEntity<>(userService.getAllUsersBySprintId(sprintId), HttpStatus.OK);
     }
 
-    @PutMapping("/updateProfile/{id}")
-    public ResponseEntity<UserResponseDTO> updateProfile(@RequestBody ProfileDTO profileDTO, @PathVariable int id){
-        return new ResponseEntity<>(userService.updateProfile(profileDTO, id), HttpStatus.OK);
+    @PutMapping("/updateProfile/{userId}")
+    public ResponseEntity<UserResponseDTO> updateProfile(@RequestBody ProfileDTO profileDTO, @PathVariable int userId){
+        return new ResponseEntity<>(userService.updateProfile(profileDTO, userId), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody UserDTO user, @PathVariable int id){
-        return new ResponseEntity<>(userService.updateUser(user, id), HttpStatus.OK);
+    @PutMapping("/{userId}")
+    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody UserDTO user, @PathVariable int userId){
+        return new ResponseEntity<>(userService.updateUser(user, userId), HttpStatus.OK);
     }
 
-    @PutMapping("/changePassword/{id}")
-    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeDTO passwordChangeDTO, @PathVariable int id) throws Exception {
-        userService.changePassword(passwordChangeDTO, id);
-        return ResponseEntity.ok("Password updated successfully");
+    @PutMapping("/changePassword/{userId}")
+    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeDTO passwordChangeDTO, @PathVariable int userId) throws Exception {
+        userService.changePassword(passwordChangeDTO, userId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable int id){
         userService.deleteUser(id);
         return new ResponseEntity<>("User Deleted.",HttpStatus.NO_CONTENT);

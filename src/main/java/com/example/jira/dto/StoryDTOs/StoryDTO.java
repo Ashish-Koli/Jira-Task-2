@@ -8,14 +8,16 @@ public class StoryDTO {
     private int board;
     private int sprint;
     private int epic;
+    private int assignedTo;
 
-    public StoryDTO(String storyName, String description, int storyStatus, int board, int sprint, int epic) {
+    public StoryDTO(String storyName, String description, int storyStatus, int board, int sprint, int epic, int assignedTo) {
         this.storyName = storyName;
         this.description = description;
         this.storyStatus = storyStatus;
         this.board = board;
         this.sprint = sprint;
         this.epic = epic;
+        this.assignedTo = assignedTo;
     }
 
     public String getStoryName() {
@@ -64,5 +66,13 @@ public class StoryDTO {
 
     public void setEpic(int epic) {
         this.epic = epic;
+    }
+
+    public int getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(int assignedTo) {
+        this.assignedTo = assignedTo;
     }
 }

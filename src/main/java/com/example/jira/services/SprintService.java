@@ -3,6 +3,7 @@ package com.example.jira.services;
 import com.example.jira.dto.BoardDTOs.BoardNameResponseDTO;
 import com.example.jira.dto.EpicDTOs.EpicNameResponseDTO;
 import com.example.jira.dto.SprintDTOs.SprintDTO;
+import com.example.jira.dto.SprintDTOs.SprintNameResponseDTO;
 import com.example.jira.dto.SprintDTOs.SprintResponseDTO;
 import com.example.jira.dto.StoryDTOs.StoryResponseDTO;
 import com.example.jira.dto.UserDTOs.UserNameResponseDTO;
@@ -111,11 +112,22 @@ public class SprintService {
             userNameResponseDTO.setUserId(story.getUser().getUserId());
             userNameResponseDTO.setUserName(story.getUser().getUserName());
             storyResponseDTO.setUser(userNameResponseDTO);
+            BoardNameResponseDTO boardNameResponseDTO = new BoardNameResponseDTO();
+            boardNameResponseDTO.setBoardId(story.getBoard().getBoardId());
+            boardNameResponseDTO.setBoardName(story.getBoard().getBoardName());
+            storyResponseDTO.setBoard(boardNameResponseDTO);
+            SprintNameResponseDTO sprintNameResponseDTO = new SprintNameResponseDTO();
+            sprintNameResponseDTO.setSprintId(story.getSprint().getSprintId());
+            sprintNameResponseDTO.setSprintName(story.getSprint().getSprintName());
+            storyResponseDTO.setSprint(sprintNameResponseDTO);
             EpicNameResponseDTO epicNameResponseDTO = new EpicNameResponseDTO();
             epicNameResponseDTO.setEpicId(story.getEpic().getEpicId());
             epicNameResponseDTO.setEpicName(story.getEpic().getEpicName());
             storyResponseDTO.setEpic(epicNameResponseDTO);
-
+            UserNameResponseDTO assignedTo = new UserNameResponseDTO();
+            assignedTo.setUserId(story.getAssignedTo().getUserId());
+            assignedTo.setUserName(story.getAssignedTo().getUserName());
+            storyResponseDTO.setAssignedTo(assignedTo);
 
             if (storyResponseDTO.getStoryStatus().getName().equalsIgnoreCase("ToDo")) {
                 todoList.add(storyResponseDTO);

@@ -38,9 +38,9 @@ public class SecurityConfig {
         http.csrf(customizer -> customizer.disable());
         http.authorizeHttpRequests(request->
                 request.requestMatchers(
-                         "user/login","user/create","role/allRoles")
+                         "user/login","user","role/allRoles")
                         .permitAll()
-                        .requestMatchers("project/create","project/update/{id}","project/delete/{id}" ).hasAuthority("Admin")
+                        .requestMatchers("project","project/{id}","project/{id}" ).hasAuthority("Admin")
                         .requestMatchers("board/create","board/update/{id}","board/delete/{id}" ).hasAuthority("Admin")
                         .requestMatchers("sprint/create","sprint/update/{id}","sprint/delete/{id}" ).hasAuthority("Admin")
                         .requestMatchers("epic/create","epic/update/{id}","epic/delete/{id}" ).hasAuthority("Admin")
