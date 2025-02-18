@@ -3,13 +3,15 @@ package com.example.jira.dto.UserDTOs;
 public class UserNameResponseDTO {
     private int userId;
     private String userName;
+    private String email;
 
     public UserNameResponseDTO() {
     }
 
-    public UserNameResponseDTO(int userId, String userName) {
+    public UserNameResponseDTO(int userId, String userName, String email) {
         this.userId = userId;
         this.userName = userName;
+        this.email = email;
     }
 
     public int getUserId() {
@@ -26,5 +28,13 @@ public class UserNameResponseDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
