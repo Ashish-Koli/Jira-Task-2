@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/comment")
 public class CommentsController {
 
     @Autowired
     private CommentsService commentsService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<Comment> createComment(@RequestBody CommentDTO commentDTO){
         return new ResponseEntity<>(commentsService.createComment(commentDTO), HttpStatus.CREATED);
     }
@@ -27,24 +27,24 @@ public class CommentsController {
 //    public ResponseEntity<List<Comment>> getAllComments(){
 //        return new ResponseEntity<>(commentsService.getAllComments(), HttpStatus.OK);
 //    }
-    @GetMapping("/allComment/{id}")
-    public ResponseEntity<List<CommentResponseDTO>> getAllComments(@PathVariable int id) {
-        return new ResponseEntity<>(commentsService.getAllComments(id), HttpStatus.OK);
+    @GetMapping("/allComments/{storyId}")
+    public ResponseEntity<List<CommentResponseDTO>> getAllComments(@PathVariable int storyId) {
+        return new ResponseEntity<>(commentsService.getAllComments(storyId), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Comment> getComment(@PathVariable int id){
-        return new ResponseEntity<>(commentsService.getComment(id), HttpStatus.OK);
+    @GetMapping("/{commentId}")
+    public ResponseEntity<Comment> getComment(@PathVariable int commentId){
+        return new ResponseEntity<>(commentsService.getComment(commentId), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Comment> updateComment(@RequestBody CommentDTO commentDTO , @PathVariable int id){
-        return new ResponseEntity<>(commentsService.updateComment(commentDTO, id), HttpStatus.OK);
+    @PutMapping("/{commentId}")
+    public ResponseEntity<Comment> updateComment(@RequestBody CommentDTO commentDTO , @PathVariable int commentId){
+        return new ResponseEntity<>(commentsService.updateComment(commentDTO, commentId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteComment(@PathVariable int id){
-        commentsService.deleteComment(id);
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<Object> deleteComment(@PathVariable int commentId){
+        commentsService.deleteComment(commentId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

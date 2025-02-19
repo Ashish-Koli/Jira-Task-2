@@ -19,19 +19,19 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<ProjectResponseDTO> createProject(@RequestBody ProjectDTO projectDTO){
         return  new ResponseEntity<>(projectService.createProject(projectDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/allProject")
+    @GetMapping("/allProjects")
     public ResponseEntity<List<ProjectResponseDTO>> getAllProjects(){
         return new ResponseEntity<>(projectService.getAllProjects(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Project> getProject(@PathVariable int id){
-        return new ResponseEntity<>(projectService.getProject(id), HttpStatus.OK);
+    @GetMapping("/{projectId}")
+    public ResponseEntity<Project> getProject(@PathVariable int projectId){
+        return new ResponseEntity<>(projectService.getProject(projectId), HttpStatus.OK);
     }
 
     @GetMapping("/user/{userId}")
@@ -44,14 +44,14 @@ public class ProjectController {
         return projectService.getProjectsNamesByUserId(userId);
     }
 
-    @PutMapping("update/{id}")
-    public ResponseEntity<ProjectResponseDTO> updateProject(@RequestBody ProjectDTO projectDTO, @PathVariable  int id){
-        return new ResponseEntity<>(projectService.updateProject(projectDTO, id), HttpStatus.OK);
+    @PutMapping("/{projectId}")
+    public ResponseEntity<ProjectResponseDTO> updateProject(@RequestBody ProjectDTO projectDTO, @PathVariable  int projectId){
+        return new ResponseEntity<>(projectService.updateProject(projectDTO, projectId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteProject(@PathVariable int id){
-        projectService.deleteProject(id);
+    @DeleteMapping("/{projectId}")
+    public ResponseEntity<Object> deleteProject(@PathVariable int projectId){
+        projectService.deleteProject(projectId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

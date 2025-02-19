@@ -17,7 +17,7 @@ public class ReleaseController {
     @Autowired
     private ReleaseService releaseService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<Release> createRelease(@RequestBody ReleaseDTO releaseDTO){
         return new ResponseEntity<>(releaseService.createRelease(releaseDTO), HttpStatus.CREATED);
     }
@@ -43,7 +43,7 @@ public class ReleaseController {
 //        return new ResponseEntity<>(releaseService.updateRelease(releaseDTO, id), HttpStatus.OK);
 //    }
 
-    @PutMapping("/update")
+    @PutMapping("")
     public ResponseEntity<Release> updateReleaseBySprintId(@RequestBody ReleaseDTO releaseDTO){
         return new ResponseEntity<>(releaseService.updateReleaseBySprintId(releaseDTO), HttpStatus.OK);
     }

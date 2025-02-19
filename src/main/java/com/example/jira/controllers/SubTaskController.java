@@ -18,34 +18,34 @@ public class SubTaskController {
     @Autowired
     private SubTaskService subTaskService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<SubTask> createSubTask(@RequestBody SubTaskDTO subTaskDTO){
         return new ResponseEntity<>(subTaskService.createSubtask(subTaskDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/allSubTask")
+    @GetMapping("/allSubTasks")
     public ResponseEntity<List<SubTask>> getAllSubTasks(){
         return new ResponseEntity<>(subTaskService.getAllSubTasks(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SubTask> getSubTask(@PathVariable int id){
-        return new ResponseEntity<>(subTaskService.getSubTask(id), HttpStatus.OK);
+    @GetMapping("/{subTaskId}")
+    public ResponseEntity<SubTask> getSubTask(@PathVariable int subTaskId){
+        return new ResponseEntity<>(subTaskService.getSubTask(subTaskId), HttpStatus.OK);
     }
 
-    @GetMapping("/allSubTask/{id}")
-    public ResponseEntity<List<SubTaskResponseDTO>> getAllSubTaskByStoryId(@PathVariable int id) {
-        return new ResponseEntity<>(subTaskService.getAllSubTaskByStoryId(id), HttpStatus.OK);
+    @GetMapping("/allSubTasks/{storyId}")
+    public ResponseEntity<List<SubTaskResponseDTO>> getAllSubTaskByStoryId(@PathVariable int storyId) {
+        return new ResponseEntity<>(subTaskService.getAllSubTaskByStoryId(storyId), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<SubTask> updateSubTask(@RequestBody SubTaskDTO subTaskDTO, @PathVariable int id){
-        return new ResponseEntity<>(subTaskService.updateSubTask(subTaskDTO, id), HttpStatus.OK);
+    @PutMapping("/{subTaskId}")
+    public ResponseEntity<SubTask> updateSubTask(@RequestBody SubTaskDTO subTaskDTO, @PathVariable int subTaskId){
+        return new ResponseEntity<>(subTaskService.updateSubTask(subTaskDTO, subTaskId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteSubTask(@PathVariable int id){
-        subTaskService.deleteSubTask(id);
+    @DeleteMapping("/{subTaskId}")
+    public ResponseEntity<String> deleteSubTask(@PathVariable int subTaskId){
+        subTaskService.deleteSubTask(subTaskId);
         return new ResponseEntity<>("SubTask Deleted.", HttpStatus.OK);
     }
 

@@ -19,7 +19,7 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<BoardResponseDTO> createBoard(@RequestBody BoardDTO boardDTO){
         return new ResponseEntity<>(boardService.createBoard(boardDTO), HttpStatus.CREATED);
     }
@@ -29,9 +29,9 @@ public class BoardController {
         return new ResponseEntity<>(boardService.getAllBoards(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Board> getBoard(@PathVariable int id){
-        return new ResponseEntity<>(boardService.getBoard(id), HttpStatus.OK);
+    @GetMapping("/{boardId}")
+    public ResponseEntity<Board> getBoard(@PathVariable int boardId){
+        return new ResponseEntity<>(boardService.getBoard(boardId), HttpStatus.OK);
     }
 
 //    @GetMapping("/project/{projectId}")
@@ -51,14 +51,14 @@ public class BoardController {
 //    }
 
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<BoardResponseDTO> updateBoard(@RequestBody BoardDTO boardDTO, @PathVariable int id){
-        return new ResponseEntity<>(boardService.updateBoard(boardDTO, id), HttpStatus.OK);
+    @PutMapping("/{boardId}")
+    public ResponseEntity<BoardResponseDTO> updateBoard(@RequestBody BoardDTO boardDTO, @PathVariable int boardId){
+        return new ResponseEntity<>(boardService.updateBoard(boardDTO, boardId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteBoard(@PathVariable int id){
-        boardService.deleteBoard(id);
+    @DeleteMapping("/{boardId}")
+    public ResponseEntity<String> deleteBoard(@PathVariable int boardId){
+        boardService.deleteBoard(boardId);
         return new ResponseEntity<>("Board Deleted.",HttpStatus.NO_CONTENT);
     }
 

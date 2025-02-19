@@ -17,29 +17,29 @@ StoryStatusController {
     @Autowired
     private StoryStatusService storyStatusService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<StoryStatus> createStoryStatus(@RequestBody StoryStatus storyStatus){
         return new ResponseEntity<>(storyStatusService.createStoryStatus(storyStatus), HttpStatus.CREATED);
     }
 
-    @GetMapping("/allStoryStatus")
+    @GetMapping("/allStoryStatuses")
     public ResponseEntity<List<StoryStatus>> getAllStoryStatus(){
         return new ResponseEntity<>(storyStatusService.getAllStoryStatus(), HttpStatus.OK);
     }
     
-    @GetMapping("/{id}")
-    public ResponseEntity<StoryStatus> getStoryStatus(@PathVariable int id){
-        return new ResponseEntity<>(storyStatusService.getStoryStatus(id), HttpStatus.OK);
+    @GetMapping("/{storyStatusId}")
+    public ResponseEntity<StoryStatus> getStoryStatus(@PathVariable int storyStatusId){
+        return new ResponseEntity<>(storyStatusService.getStoryStatus(storyStatusId), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<StoryStatus> updateStoryStatus(@RequestBody StoryStatus storyStatus, @PathVariable int id){
-        return new ResponseEntity<>(storyStatusService.updateStoryStatus(storyStatus, id), HttpStatus.OK);
+    @PutMapping("/{storyStatusId}")
+    public ResponseEntity<StoryStatus> updateStoryStatus(@RequestBody StoryStatus storyStatus, @PathVariable int storyStatusId){
+        return new ResponseEntity<>(storyStatusService.updateStoryStatus(storyStatus, storyStatusId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteStoryStatus(@PathVariable int id){
-        storyStatusService.deleteStoryStatus(id);
+    @DeleteMapping("/{storyStatusId}")
+    public ResponseEntity<String> deleteStoryStatus(@PathVariable int storyStatusId){
+        storyStatusService.deleteStoryStatus(storyStatusId);
         return new ResponseEntity<>("StoryStatus Deleted.", HttpStatus.OK);
     }
 }
