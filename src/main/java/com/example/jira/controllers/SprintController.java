@@ -21,45 +21,45 @@ public class SprintController {
     @Autowired
     private SprintService sprintService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<Sprint> createSprint(@RequestBody SprintDTO sprintDTO){
         return new ResponseEntity<>(sprintService.createSprint(sprintDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/allSprint")
+    @GetMapping("/allSprints")
     public ResponseEntity<List<Sprint>> getAllSprints(){
         return new ResponseEntity<>(sprintService.getALlSprint(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Sprint> getSprint(@PathVariable int id){
-        return new ResponseEntity<>(sprintService.getSprint(id), HttpStatus.OK);
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Sprint> getSprint(@PathVariable int id){
+//        return new ResponseEntity<>(sprintService.getSprint(id), HttpStatus.OK);
+//    }
+
+    @GetMapping("/{sprintId}")
+    public ResponseEntity<SprintResponseDTO> getSprintDetails(@PathVariable int sprintId){
+        return new ResponseEntity<>(sprintService.getSprintDetails(sprintId), HttpStatus.OK);
     }
 
-    @GetMapping("/details/{id}")
-    public ResponseEntity<SprintResponseDTO> getSprintDetails(@PathVariable int id){
-        return new ResponseEntity<>(sprintService.getSprintDetails(id), HttpStatus.OK);
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<SprintResponseDTO>> getSprintByUserId(@PathVariable int userId){
+        return new ResponseEntity<>(sprintService.getSprintByUserId(userId),HttpStatus.OK);
     }
 
-
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<SprintResponseDTO>> getSprintByUserId(@PathVariable int id){
-        return new ResponseEntity<>(sprintService.getSprintByUserId(id),HttpStatus.OK);
-    }
-
-    @GetMapping("/{sprintId}/stories")
+    @GetMapping("/stories/{sprintId}")
     public ResponseEntity<Map<String, List<StoryResponseDTO>>> getCategorizedStories(@PathVariable int sprintId) {
             return ResponseEntity.ok(sprintService.getCategorizedStoriesBySprintId(sprintId));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Sprint> updateSprint(@RequestBody SprintDTO sprintDTO, @PathVariable  int id){
-        return new ResponseEntity<>(sprintService.updateSprint(sprintDTO, id), HttpStatus.OK);
+    @PutMapping("/{sprintId}")
+    public ResponseEntity<Sprint> updateSprint(@RequestBody SprintDTO sprintDTO, @PathVariable  int sprintId){
+        return new ResponseEntity<>(sprintService.updateSprint(sprintDTO, sprintId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteSprint(@PathVariable int id){
-        sprintService.deleteSprint(id);
+    @DeleteMapping("/{sprintId}")
+    public ResponseEntity<Object> deleteSprint(@PathVariable int sprintId){
+        sprintService.deleteSprint(sprintId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

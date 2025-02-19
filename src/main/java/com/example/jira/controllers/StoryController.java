@@ -19,34 +19,34 @@ public class StoryController {
     @Autowired
     private StoryService storyService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<StoryResponseDTO> createStory(@RequestBody StoryDTO storyDTO){
         return new ResponseEntity<>(storyService.createStory(storyDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/allStory")
+    @GetMapping("/allStories")
     public ResponseEntity<List<StoryResponseDTO>> getAllStory(){
         return new ResponseEntity<>(storyService.getALlStory(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<StoryResponseDTO> getStory(@PathVariable int id){
-        return new ResponseEntity<>(storyService.getStory(id), HttpStatus.OK);
+    @GetMapping("/{storyId}")
+    public ResponseEntity<StoryResponseDTO> getStory(@PathVariable int storyId){
+        return new ResponseEntity<>(storyService.getStory(storyId), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<StoryResponseDTO> updateStory(@RequestBody StoryDTO storyDTO,@PathVariable int id){
-        return new ResponseEntity<>(storyService.updateStory(storyDTO, id), HttpStatus.OK);
+    @PutMapping("/{storyId}")
+    public ResponseEntity<StoryResponseDTO> updateStory(@RequestBody StoryDTO storyDTO,@PathVariable int storyId){
+        return new ResponseEntity<>(storyService.updateStory(storyDTO, storyId), HttpStatus.OK);
     }
 
-    @PutMapping("update/storyStatus/{id}")
-    public ResponseEntity<Story> updateStoryStatus(@RequestBody UpdateStoryStatusDTO statusDTO, @PathVariable int id){
-        return new ResponseEntity<>(storyService.updateStoryStatus(statusDTO, id), HttpStatus.OK);
+    @PutMapping("/storyStatus/{storyId}")
+    public ResponseEntity<Story> updateStoryStatus(@RequestBody UpdateStoryStatusDTO statusDTO, @PathVariable int storyId){
+        return new ResponseEntity<>(storyService.updateStoryStatus(statusDTO, storyId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteStory(@PathVariable int id){
-        storyService.deleteStory(id);
+    @DeleteMapping("/{storyId}")
+    public ResponseEntity<Object> deleteStory(@PathVariable int storyId){
+        storyService.deleteStory(storyId);
         return new ResponseEntity<>( HttpStatus.OK);
     }
 

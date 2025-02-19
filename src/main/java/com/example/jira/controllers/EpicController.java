@@ -18,33 +18,33 @@ public class EpicController {
     @Autowired
     private EpicService epicService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<Epic> createEpic(@RequestBody EpicDTO epicDTO){
         return new ResponseEntity<>(epicService.createEpic(epicDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/allEpic")
+    @GetMapping("/allEpics")
     public ResponseEntity<List<EpicResponseDTO>> getAllEpics(){
         return new ResponseEntity<>(epicService.getAllEpics(), HttpStatus.OK);
     }
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<EpicResponseDTO>> getAllEpicBYUserId(@PathVariable int id){
-        return new ResponseEntity<>(epicService.getAllEpicsByUserId(id), HttpStatus.OK);
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<EpicResponseDTO>> getAllEpicBYUserId(@PathVariable int userId){
+        return new ResponseEntity<>(epicService.getAllEpicsByUserId(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Epic> getEpic(@PathVariable int id){
-        return new ResponseEntity<>(epicService.getEpic(id), HttpStatus.OK);
+    @GetMapping("/{epicId}")
+    public ResponseEntity<Epic> getEpic(@PathVariable int epicId){
+        return new ResponseEntity<>(epicService.getEpic(epicId), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Epic> updateEpic(@RequestBody EpicDTO epicDTO, @PathVariable int id){
-        return new ResponseEntity<>(epicService.updateEpic(epicDTO, id), HttpStatus.OK);
+    @PutMapping("/{epicId}")
+    public ResponseEntity<Epic> updateEpic(@RequestBody EpicDTO epicDTO, @PathVariable int epicId){
+        return new ResponseEntity<>(epicService.updateEpic(epicDTO, epicId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteEpic(@PathVariable int id){
-        epicService.deleteEpic(id);
+    @DeleteMapping("/{epicId}")
+    public ResponseEntity<Object> deleteEpic(@PathVariable int epicId){
+        epicService.deleteEpic(epicId);
         return new ResponseEntity<>( HttpStatus.OK);
     }
 }
